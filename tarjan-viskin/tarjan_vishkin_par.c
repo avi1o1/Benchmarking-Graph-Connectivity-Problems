@@ -437,7 +437,7 @@ void tarjan_vishkin_biconnected_components_parallel(Graph* graph, ComponentList*
     int* preorder = (int*)malloc(n * sizeof(int));
     int* low = (int*)malloc(n * sizeof(int));
     int* visited = (int*)calloc(n, sizeof(int));
-    Edge* edges = (Edge*)calloc(m, sizeof(Edge)); // Changed to calloc to ensure initialization
+    Edge* edges = (Edge*)malloc(m * sizeof(Edge)); // Changed back to malloc
     
     if (!preorder || !low || !visited || !edges) {
         fprintf(stderr, "Memory allocation failed for DFS arrays\n");
@@ -450,6 +450,13 @@ void tarjan_vishkin_biconnected_components_parallel(Graph* graph, ComponentList*
         preorder[i] = 0;
         low[i] = 0;
         visited[i] = 0;
+    }
+    
+    // Initialize edges array to avoid undefined behavior
+    #pragma omp parallel for
+    for (int i = 0; i < m; i++) {
+        edges[i].src = -1;
+        edges[i].dest = -1;
     }
     
     // Initialize DFS time
@@ -481,6 +488,11 @@ void tarjan_vishkin_biconnected_components_parallel(Graph* graph, ComponentList*
         #pragma omp single
         {
             int* is_root = (int*)calloc(m, sizeof(int));
+            if (!is_root) {
+                fprintf(stderr, "Memory allocation failed for is_root array\n");
+                exit(EXIT_FAILURE);
+            }
+            
             for (int i = 0; i < m; i++) {
                 if (component_id[i] == i) {
                     is_root[i] = 1;
@@ -522,76 +534,75 @@ void tarjan_vishkin_biconnected_components_parallel(Graph* graph, ComponentList*
         }
     }
     
-    // Group edges by biconnected component
-    #pragma omp parallel
-    {
-        // Thread-private counter arrays
-        int* local_sizes = (int*)calloc(component_count, sizeof(int));
-        
-        // Each thread counts its contribution to each component
-        #pragma omp for schedule(static)
-        for (int i = 0; i < m; i++) {
-            int root = component_id[i];
-            int component = component_map[root];
-            local_sizes[component]++;
+    // Group edges by biconnected component - fixed synchronized access
+    int* current_sizes = (int*)calloc(component_count, sizeof(int));
+    if (!current_sizes) {
+        fprintf(stderr, "Memory allocation failed for current_sizes array\n");
+        exit(EXIT_FAILURE);
+    }
+    
+    // First pass: count sizes
+    #pragma omp parallel for
+    for (int i = 0; i < m; i++) {
+        int root = component_id[i];
+        int component = component_map[root];
+        #pragma omp atomic
+        component_sizes[component]++;
+    }
+    
+    // Resize arrays if necessary
+    for (int c = 0; c < component_count; c++) {
+        if (component_sizes[c] > component_capacities[c]) {
+            component_capacities[c] = component_sizes[c] * 2;  // Add some extra space
+            component_edges[c] = (int*)realloc(component_edges[c], 
+                                            component_capacities[c] * sizeof(int));
+            if (!component_edges[c]) {
+                fprintf(stderr, "Memory allocation failed for resizing component edges\n");
+                exit(EXIT_FAILURE);
+            }
         }
+    }
+    
+    // Reset sizes for the second pass
+    memset(current_sizes, 0, component_count * sizeof(int));
+    
+    // Second pass: add edges using atomic operations
+    #pragma omp parallel for
+    for (int i = 0; i < m; i++) {
+        int root = component_id[i];
+        int component = component_map[root];
         
-        // Allocate space in the global arrays
-        #pragma omp critical
+        int pos;
+        #pragma omp atomic capture
         {
-            for (int c = 0; c < component_count; c++) {
-                if (component_sizes[c] + local_sizes[c] > component_capacities[c]) {
-                    while (component_sizes[c] + local_sizes[c] > component_capacities[c]) {
-                        component_capacities[c] *= 2;
-                    }
-                    component_edges[c] = (int*)realloc(component_edges[c], 
-                                                    component_capacities[c] * sizeof(int));
-                    if (!component_edges[c]) {
-                        fprintf(stderr, "Memory allocation failed for component edges\n");
-                        exit(EXIT_FAILURE);
-                    }
-                }
-            }
+            pos = current_sizes[component];
+            current_sizes[component]++;
         }
         
-        // Add edges to components using thread-local counters
-        #pragma omp barrier
-        
-        int* local_offsets = (int*)malloc(component_count * sizeof(int));
-        if (!local_offsets) {
-            fprintf(stderr, "Memory allocation failed for local offsets\n");
-            exit(EXIT_FAILURE);
+        if (pos < component_capacities[component]) {
+            component_edges[component][pos] = i;
         }
-        
-        #pragma omp critical
-        {
-            for (int c = 0; c < component_count; c++) {
-                local_offsets[c] = component_sizes[c];
-                component_sizes[c] += local_sizes[c];
-            }
-        }
-        
-        // Now each thread has its own portion of the arrays to fill
-        #pragma omp for schedule(static)
-        for (int i = 0; i < m; i++) {
-            int root = component_id[i];
-            int component = component_map[root];
-            int offset = local_offsets[component]++;
-            if (offset < component_capacities[component]) {
-                component_edges[component][offset] = i;
-            }
-        }
-        
-        free(local_sizes);
-        free(local_offsets);
     }
     
     // Add components to result
     init_component_list(result, component_count);
     
+    // Make a copy of edges to avoid memory issues
+    Edge* edges_copy = (Edge*)malloc(m * sizeof(Edge));
+    if (!edges_copy) {
+        fprintf(stderr, "Memory allocation failed for edges copy\n");
+        exit(EXIT_FAILURE);
+    }
+    
+    // Copy edge data
+    memcpy(edges_copy, edges, m * sizeof(Edge));
+    
+    // Add components and set the edges copy
     for (int i = 0; i < component_count; i++) {
         add_component_to_list(result, component_edges[i], component_sizes[i]);
     }
+    
+    result->edges = edges_copy;  // Store copy of edges for later printing
     
     // Clean up
     for (int i = 0; i < component_count; i++) {
@@ -601,9 +612,8 @@ void tarjan_vishkin_biconnected_components_parallel(Graph* graph, ComponentList*
     free(preorder);
     free(low);
     free(visited);
-    // Store the edges for later printing
-    result->edges = edges; // Pass ownership of edges to result
-    
+    free(edges);  // Free original edges array
+    free(current_sizes);
     free(component_id);
     free(component_edges);
     free(component_sizes);

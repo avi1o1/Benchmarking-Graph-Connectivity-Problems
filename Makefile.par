@@ -1,12 +1,15 @@
 # Makefile for parallel graph connectivity algorithms
 CC = gcc
 CFLAGS = -O3 -Wall -fopenmp
-THREAD_CONFIGS = 4 6 8
+THREAD_CONFIGS = 8
 
 # Directories
 TARGETS = slota_madduri_par jen_schmidt_par tarjan_vishkin_par
 RESULTS_DIR = results_par
-DATASETS = small medium large
+
+# Get all datasets dynamically (without .txt extension for target names)
+DATASETS_FULL = $(wildcard datasets/*.txt)
+DATASETS = $(patsubst datasets/%.txt,%,$(DATASETS_FULL))
 
 # Default target
 all: setup $(TARGETS) run
@@ -28,96 +31,21 @@ tarjan_vishkin_par: tarjan-viskin/tarjan_vishkin_par.c
 # Run all algorithms on all datasets with different thread counts
 run: $(foreach t,$(THREAD_CONFIGS),$(foreach d,$(DATASETS),$(foreach target,$(TARGETS),run_$(t)_$(d)_$(target))))
 
-# Rules to run each algorithm on each dataset with specified number of threads
-run_%_small_slota_madduri_par: bin/slota_madduri_par
-	@echo "Running $< on small dataset with $* threads..."
+# Define a function to extract parts of a target name
+define run_rule
+run_%_$(1)_$(2): bin/$(2)
+	@echo "Running $$< on $(1) dataset with $$* threads..."
 	@mkdir -p $(RESULTS_DIR)
-	@echo "---------------------------------------------------" > $(RESULTS_DIR)/$*_threads_slota_madduri_par_small.txt
-	@echo "Results for $< on small dataset with $* threads" >> $(RESULTS_DIR)/$*_threads_slota_madduri_par_small.txt
-	@echo "Timestamp: $$(date)" >> $(RESULTS_DIR)/$*_threads_slota_madduri_par_small.txt
-	@echo "---------------------------------------------------" >> $(RESULTS_DIR)/$*_threads_slota_madduri_par_small.txt
-	OMP_NUM_THREADS=$* $< datasets/small.txt >> $(RESULTS_DIR)/$*_threads_slota_madduri_par_small.txt 2>&1
-	@echo "Completed $< on small dataset with $* threads. Results in $(RESULTS_DIR)/$*_threads_slota_madduri_par_small.txt"
+	@echo "---------------------------------------------------" > $(RESULTS_DIR)/$$*_threads_$(2)_$(1).txt
+	@echo "Results for $$< on $(1) dataset with $$* threads" >> $(RESULTS_DIR)/$$*_threads_$(2)_$(1).txt
+	@echo "Timestamp: $$(date)" >> $(RESULTS_DIR)/$$*_threads_$(2)_$(1).txt
+	@echo "---------------------------------------------------" >> $(RESULTS_DIR)/$$*_threads_$(2)_$(1).txt
+	OMP_NUM_THREADS=$$* $$< datasets/$(1).txt >> $(RESULTS_DIR)/$$*_threads_$(2)_$(1).txt 2>&1
+	@echo "Completed $$< on $(1) dataset with $$* threads. Results in $(RESULTS_DIR)/$$*_threads_$(2)_$(1).txt"
+endef
 
-run_%_medium_slota_madduri_par: bin/slota_madduri_par
-	@echo "Running $< on medium dataset with $* threads..."
-	@mkdir -p $(RESULTS_DIR)
-	@echo "---------------------------------------------------" > $(RESULTS_DIR)/$*_threads_slota_madduri_par_medium.txt
-	@echo "Results for $< on medium dataset with $* threads" >> $(RESULTS_DIR)/$*_threads_slota_madduri_par_medium.txt
-	@echo "Timestamp: $$(date)" >> $(RESULTS_DIR)/$*_threads_slota_madduri_par_medium.txt
-	@echo "---------------------------------------------------" >> $(RESULTS_DIR)/$*_threads_slota_madduri_par_medium.txt
-	OMP_NUM_THREADS=$* $< datasets/medium.txt >> $(RESULTS_DIR)/$*_threads_slota_madduri_par_medium.txt 2>&1
-	@echo "Completed $< on medium dataset with $* threads. Results in $(RESULTS_DIR)/$*_threads_slota_madduri_par_medium.txt"
-
-run_%_large_slota_madduri_par: bin/slota_madduri_par
-	@echo "Running $< on large dataset with $* threads..."
-	@mkdir -p $(RESULTS_DIR)
-	@echo "---------------------------------------------------" > $(RESULTS_DIR)/$*_threads_slota_madduri_par_large.txt
-	@echo "Results for $< on large dataset with $* threads" >> $(RESULTS_DIR)/$*_threads_slota_madduri_par_large.txt
-	@echo "Timestamp: $$(date)" >> $(RESULTS_DIR)/$*_threads_slota_madduri_par_large.txt
-	@echo "---------------------------------------------------" >> $(RESULTS_DIR)/$*_threads_slota_madduri_par_large.txt
-	OMP_NUM_THREADS=$* $< datasets/large.txt >> $(RESULTS_DIR)/$*_threads_slota_madduri_par_large.txt 2>&1
-	@echo "Completed $< on large dataset with $* threads. Results in $(RESULTS_DIR)/$*_threads_slota_madduri_par_large.txt"
-
-run_%_small_jen_schmidt_par: bin/jen_schmidt_par
-	@echo "Running $< on small dataset with $* threads..."
-	@mkdir -p $(RESULTS_DIR)
-	@echo "---------------------------------------------------" > $(RESULTS_DIR)/$*_threads_jen_schmidt_par_small.txt
-	@echo "Results for $< on small dataset with $* threads" >> $(RESULTS_DIR)/$*_threads_jen_schmidt_par_small.txt
-	@echo "Timestamp: $$(date)" >> $(RESULTS_DIR)/$*_threads_jen_schmidt_par_small.txt
-	@echo "---------------------------------------------------" >> $(RESULTS_DIR)/$*_threads_jen_schmidt_par_small.txt
-	OMP_NUM_THREADS=$* $< datasets/small.txt >> $(RESULTS_DIR)/$*_threads_jen_schmidt_par_small.txt 2>&1
-	@echo "Completed $< on small dataset with $* threads. Results in $(RESULTS_DIR)/$*_threads_jen_schmidt_par_small.txt"
-
-run_%_medium_jen_schmidt_par: bin/jen_schmidt_par
-	@echo "Running $< on medium dataset with $* threads..."
-	@mkdir -p $(RESULTS_DIR)
-	@echo "---------------------------------------------------" > $(RESULTS_DIR)/$*_threads_jen_schmidt_par_medium.txt
-	@echo "Results for $< on medium dataset with $* threads" >> $(RESULTS_DIR)/$*_threads_jen_schmidt_par_medium.txt
-	@echo "Timestamp: $$(date)" >> $(RESULTS_DIR)/$*_threads_jen_schmidt_par_medium.txt
-	@echo "---------------------------------------------------" >> $(RESULTS_DIR)/$*_threads_jen_schmidt_par_medium.txt
-	OMP_NUM_THREADS=$* $< datasets/medium.txt >> $(RESULTS_DIR)/$*_threads_jen_schmidt_par_medium.txt 2>&1
-	@echo "Completed $< on medium dataset with $* threads. Results in $(RESULTS_DIR)/$*_threads_jen_schmidt_par_medium.txt"
-
-run_%_large_jen_schmidt_par: bin/jen_schmidt_par
-	@echo "Running $< on large dataset with $* threads..."
-	@mkdir -p $(RESULTS_DIR)
-	@echo "---------------------------------------------------" > $(RESULTS_DIR)/$*_threads_jen_schmidt_par_large.txt
-	@echo "Results for $< on large dataset with $* threads" >> $(RESULTS_DIR)/$*_threads_jen_schmidt_par_large.txt
-	@echo "Timestamp: $$(date)" >> $(RESULTS_DIR)/$*_threads_jen_schmidt_par_large.txt
-	@echo "---------------------------------------------------" >> $(RESULTS_DIR)/$*_threads_jen_schmidt_par_large.txt
-	OMP_NUM_THREADS=$* $< datasets/large.txt >> $(RESULTS_DIR)/$*_threads_jen_schmidt_par_large.txt 2>&1
-	@echo "Completed $< on large dataset with $* threads. Results in $(RESULTS_DIR)/$*_threads_jen_schmidt_par_large.txt"
-
-run_%_small_tarjan_vishkin_par: bin/tarjan_vishkin_par
-	@echo "Running $< on small dataset with $* threads..."
-	@mkdir -p $(RESULTS_DIR)
-	@echo "---------------------------------------------------" > $(RESULTS_DIR)/$*_threads_tarjan_vishkin_par_small.txt
-	@echo "Results for $< on small dataset with $* threads" >> $(RESULTS_DIR)/$*_threads_tarjan_vishkin_par_small.txt
-	@echo "Timestamp: $$(date)" >> $(RESULTS_DIR)/$*_threads_tarjan_vishkin_par_small.txt
-	@echo "---------------------------------------------------" >> $(RESULTS_DIR)/$*_threads_tarjan_vishkin_par_small.txt
-	OMP_NUM_THREADS=$* $< datasets/small.txt >> $(RESULTS_DIR)/$*_threads_tarjan_vishkin_par_small.txt 2>&1
-	@echo "Completed $< on small dataset with $* threads. Results in $(RESULTS_DIR)/$*_threads_tarjan_vishkin_par_small.txt"
-
-run_%_medium_tarjan_vishkin_par: bin/tarjan_vishkin_par
-	@echo "Running $< on medium dataset with $* threads..."
-	@mkdir -p $(RESULTS_DIR)
-	@echo "---------------------------------------------------" > $(RESULTS_DIR)/$*_threads_tarjan_vishkin_par_medium.txt
-	@echo "Results for $< on medium dataset with $* threads" >> $(RESULTS_DIR)/$*_threads_tarjan_vishkin_par_medium.txt
-	@echo "Timestamp: $$(date)" >> $(RESULTS_DIR)/$*_threads_tarjan_vishkin_par_medium.txt
-	@echo "---------------------------------------------------" >> $(RESULTS_DIR)/$*_threads_tarjan_vishkin_par_medium.txt
-	OMP_NUM_THREADS=$* $< datasets/medium.txt >> $(RESULTS_DIR)/$*_threads_tarjan_vishkin_par_medium.txt 2>&1
-	@echo "Completed $< on medium dataset with $* threads. Results in $(RESULTS_DIR)/$*_threads_tarjan_vishkin_par_medium.txt"
-
-run_%_large_tarjan_vishkin_par: bin/tarjan_vishkin_par
-	@echo "Running $< on large dataset with $* threads..."
-	@mkdir -p $(RESULTS_DIR)
-	@echo "---------------------------------------------------" > $(RESULTS_DIR)/$*_threads_tarjan_vishkin_par_large.txt
-	@echo "Results for $< on large dataset with $* threads" >> $(RESULTS_DIR)/$*_threads_tarjan_vishkin_par_large.txt
-	@echo "Timestamp: $$(date)" >> $(RESULTS_DIR)/$*_threads_tarjan_vishkin_par_large.txt
-	@echo "---------------------------------------------------" >> $(RESULTS_DIR)/$*_threads_tarjan_vishkin_par_large.txt
-	OMP_NUM_THREADS=$* $< datasets/large.txt >> $(RESULTS_DIR)/$*_threads_tarjan_vishkin_par_large.txt 2>&1
-	@echo "Completed $< on large dataset with $* threads. Results in $(RESULTS_DIR)/$*_threads_tarjan_vishkin_par_large.txt"
+# Generate all the run rules for each dataset and algorithm
+$(foreach d,$(DATASETS),$(foreach t,$(TARGETS),$(eval $(call run_rule,$(d),$(t)))))
 
 # Generate summary report of all results with scaling analysis
 report:
@@ -131,7 +59,7 @@ report:
 			echo "Algorithm: $$algo - Dataset: $$dataset" >> $(RESULTS_DIR)/summary_report.txt; \
 			for threads in $(THREAD_CONFIGS); do \
 				echo "  Threads: $$threads" >> $(RESULTS_DIR)/summary_report.txt; \
-				grep -A 1 "Computation time" $(RESULTS_DIR)/$${threads}_threads_$${algo}_$${dataset}.txt | head -2 >> $(RESULTS_DIR)/summary_report.txt; \
+				grep -A 1 "Computation time" $(RESULTS_DIR)/$${threads}_threads_$${algo}_$${dataset}.txt 2>/dev/null | head -2 >> $(RESULTS_DIR)/summary_report.txt || echo "  No results found" >> $(RESULTS_DIR)/summary_report.txt; \
 			done; \
 			echo "" >> $(RESULTS_DIR)/summary_report.txt; \
 		done; \
@@ -148,12 +76,24 @@ report:
 			echo "Algorithm: $$algo - Dataset: $$dataset" >> $(RESULTS_DIR)/scaling_analysis.txt; \
 			echo "Threads | Computation Time | Speedup vs Sequential" >> $(RESULTS_DIR)/scaling_analysis.txt; \
 			echo "--------|------------------|----------------------" >> $(RESULTS_DIR)/scaling_analysis.txt; \
-			base_time=$$(grep -A 1 "Computation time" $(RESULTS_DIR)/2_threads_$${algo}_$${dataset}.txt | tail -1 | awk '{print $$3}'); \
-			for threads in $(THREAD_CONFIGS); do \
-				time=$$(grep -A 1 "Computation time" $(RESULTS_DIR)/$${threads}_threads_$${algo}_$${dataset}.txt | tail -1 | awk '{print $$3}'); \
-				speedup=$$(echo "$$base_time / $$time" | bc -l | xargs printf "%.2f"); \
-				printf "%7s | %17s | %22s\n" "$$threads" "$$time seconds" "$$speedup" >> $(RESULTS_DIR)/scaling_analysis.txt; \
-			done; \
+			if [ -f $(RESULTS_DIR)/2_threads_$${algo}_$${dataset}.txt ]; then \
+				base_time=$$(grep -A 1 "Computation time" $(RESULTS_DIR)/2_threads_$${algo}_$${dataset}.txt 2>/dev/null | tail -1 | awk '{print $$3}' || echo "0"); \
+				for threads in $(THREAD_CONFIGS); do \
+					if [ -f $(RESULTS_DIR)/$${threads}_threads_$${algo}_$${dataset}.txt]; then \
+						time=$$(grep -A 1 "Computation time" $(RESULTS_DIR)/$${threads}_threads_$${algo}_$${dataset}.txt 2>/dev/null | tail -1 | awk '{print $$3}' || echo "0"); \
+						if [ "$$base_time" != "0" ] && [ "$$time" != "0" ]; then \
+							speedup=$$(echo "$$base_time / $$time" | bc -l | xargs printf "%.2f"); \
+							printf "%7s | %17s | %22s\n" "$$threads" "$$time seconds" "$$speedup" >> $(RESULTS_DIR)/scaling_analysis.txt; \
+						else \
+							printf "%7s | %17s | %22s\n" "$$threads" "N/A" "N/A" >> $(RESULTS_DIR)/scaling_analysis.txt; \
+						fi; \
+					else \
+						printf "%7s | %17s | %22s\n" "$$threads" "No data" "N/A" >> $(RESULTS_DIR)/scaling_analysis.txt; \
+					fi; \
+				done; \
+			else \
+				echo "  No baseline (2 threads) data available for $$algo on $$dataset dataset" >> $(RESULTS_DIR)/scaling_analysis.txt; \
+			fi; \
 			echo "" >> $(RESULTS_DIR)/scaling_analysis.txt; \
 		done; \
 	done
@@ -164,4 +104,9 @@ clean:
 	rm -rf bin
 	rm -rf $(RESULTS_DIR)
 
-.PHONY: all setup run report clean
+# Print the detected datasets (for debugging)
+list-datasets:
+	@echo "Detected datasets: $(DATASETS)"
+	@echo "Full paths: $(DATASETS_FULL)"
+
+.PHONY: all setup run report clean list-datasets

@@ -426,7 +426,12 @@ Graph* load_graph_from_file(const char* filename) {
     init_graph(graph, num_nodes);
     
     char line[256];
-    fgets(line, sizeof(line), file);  // Skip the first line (number of nodes)
+    if (fgets(line, sizeof(line), file) == NULL) {  // Skip the first line (number of nodes)
+        fprintf(stderr, "Error reading first line\n");
+        free(graph);
+        fclose(file);
+        return NULL;
+    }
     
     int edge_count = 0;
     printf("Loading edges...\n");

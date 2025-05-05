@@ -98,11 +98,12 @@ OMP_NUM_THREADS=4 ./slota_par datasets/medium.txt
 ```
 
 ## Datasets
-The algorithms are tested on three datasets of different sizes:
-- Small: `datasets/small.txt`
-- Medium: `datasets/medium.txt` 
-- Large: `datasets/large.txt`
-
-Dataset sources:
-- https://snap.stanford.edu/data/twitch_gamers.html
-- https://snap.stanford.edu/data/ego-Facebook.html
+| Dataset | Web URL | Nodes | Edges | Description |
+|-------------|----------|-------|-------|-------------|
+| [custom-built](./datasets/custom.txt)       | - | 50 | 128 | Custom built small set for testing |
+| [congress-Twitter](./datasets/congress.txt)       | https://snap.stanford.edu/data/congress-twitter.html | 475 | 13,289 | Twitter interaction network for the US Congress |
+| [email-Eu-Core](./datasets/email.txt)      | https://snap.stanford.edu/data/email-Eu-core.html | 1,005 | 25,571 | E-mail network |
+| [ego-Facebook](./datasets/facebook.txt)       | https://snap.stanford.edu/data/ego-Facebook.html | 4,039 | 88,234 | Facebook social circles network |
+| [musae-Facebook](./datasets/musae.txt)       | https://snap.stanford.edu/data/facebook-large-page-page-network.html | 22,469 | 171,002 | Facebook page-page network with page names |
+| [musae-github](./datasets/github.txt)       | https://snap.stanford.edu/data/github-social.html | 37,700 | 289,003 | Social network of Github developers |
+| [soc-Slashdot0922](./datasets/slashdot.txt)       | https://snap.stanford.edu/data/soc-Slashdot0902.html | 82,167 | 948,464 | Slashdot social network from February 2009 |

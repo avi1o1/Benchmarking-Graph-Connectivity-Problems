@@ -5,7 +5,10 @@ CFLAGS = -O3 -Wall
 # Directories
 TARGETS = slota_madduri_seq jen_schmidt_seq tarjan_vishkin_seq
 RESULTS_DIR = results_seq
-DATASETS = small medium large
+
+# Get all datasets dynamically (without .txt extension for target names)
+DATASETS_FULL = $(wildcard datasets/*.txt)
+DATASETS = $(patsubst datasets/%.txt,%,$(DATASETS_FULL))
 
 # Default target
 all: setup $(TARGETS) run
@@ -25,35 +28,35 @@ tarjan_vishkin_seq: tarjan-viskin/tarjan_vishkin_seq.c
 	$(CC) $(CFLAGS) -o bin/$@ $<
 
 # Run all algorithms on all datasets
-run: $(addprefix run_small_,$(TARGETS)) $(addprefix run_medium_,$(TARGETS)) $(addprefix run_large_,$(TARGETS))
+run: $(foreach dataset,$(DATASETS),$(foreach target,$(TARGETS),run_$(dataset)_$(target)))
 
-# Rules to run each algorithm on each dataset
-run_small_%: bin/%
-	@echo "Running $< on small dataset..."
-	@echo "---------------------------------------------------" > $(RESULTS_DIR)/$*_small.txt
-	@echo "Results for $* on small dataset" >> $(RESULTS_DIR)/$*_small.txt
-	@echo "Timestamp: $$(date)" >> $(RESULTS_DIR)/$*_small.txt
-	@echo "---------------------------------------------------" >> $(RESULTS_DIR)/$*_small.txt
-	$< datasets/small.txt >> $(RESULTS_DIR)/$*_small.txt 2>&1
-	@echo "Completed $< on small dataset. Results in $(RESULTS_DIR)/$*_small.txt"
+# Pattern rule to run each algorithm on each dataset
+run_%_slota_madduri_seq: bin/slota_madduri_seq
+	@echo "Running $< on $* dataset..."
+	@echo "---------------------------------------------------" > $(RESULTS_DIR)/slota_madduri_seq_$*.txt
+	@echo "Results for slota_madduri_seq on $* dataset" >> $(RESULTS_DIR)/slota_madduri_seq_$*.txt
+	@echo "Timestamp: $$(date)" >> $(RESULTS_DIR)/slota_madduri_seq_$*.txt
+	@echo "---------------------------------------------------" >> $(RESULTS_DIR)/slota_madduri_seq_$*.txt
+	$< datasets/$*.txt >> $(RESULTS_DIR)/slota_madduri_seq_$*.txt 2>&1
+	@echo "Completed $< on $* dataset. Results in $(RESULTS_DIR)/slota_madduri_seq_$*.txt"
 
-run_medium_%: bin/%
-	@echo "Running $< on medium dataset..."
-	@echo "---------------------------------------------------" > $(RESULTS_DIR)/$*_medium.txt
-	@echo "Results for $* on medium dataset" >> $(RESULTS_DIR)/$*_medium.txt
-	@echo "Timestamp: $$(date)" >> $(RESULTS_DIR)/$*_medium.txt
-	@echo "---------------------------------------------------" >> $(RESULTS_DIR)/$*_medium.txt
-	$< datasets/medium.txt >> $(RESULTS_DIR)/$*_medium.txt 2>&1
-	@echo "Completed $< on medium dataset. Results in $(RESULTS_DIR)/$*_medium.txt"
+run_%_jen_schmidt_seq: bin/jen_schmidt_seq
+	@echo "Running $< on $* dataset..."
+	@echo "---------------------------------------------------" > $(RESULTS_DIR)/jen_schmidt_seq_$*.txt
+	@echo "Results for jen_schmidt_seq on $* dataset" >> $(RESULTS_DIR)/jen_schmidt_seq_$*.txt
+	@echo "Timestamp: $$(date)" >> $(RESULTS_DIR)/jen_schmidt_seq_$*.txt
+	@echo "---------------------------------------------------" >> $(RESULTS_DIR)/jen_schmidt_seq_$*.txt
+	$< datasets/$*.txt >> $(RESULTS_DIR)/jen_schmidt_seq_$*.txt 2>&1
+	@echo "Completed $< on $* dataset. Results in $(RESULTS_DIR)/jen_schmidt_seq_$*.txt"
 
-run_large_%: bin/%
-	@echo "Running $< on large dataset..."
-	@echo "---------------------------------------------------" > $(RESULTS_DIR)/$*_large.txt
-	@echo "Results for $* on large dataset" >> $(RESULTS_DIR)/$*_large.txt
-	@echo "Timestamp: $$(date)" >> $(RESULTS_DIR)/$*_large.txt
-	@echo "---------------------------------------------------" >> $(RESULTS_DIR)/$*_large.txt
-	$< datasets/large.txt >> $(RESULTS_DIR)/$*_large.txt 2>&1
-	@echo "Completed $< on large dataset. Results in $(RESULTS_DIR)/$*_large.txt"
+run_%_tarjan_vishkin_seq: bin/tarjan_vishkin_seq
+	@echo "Running $< on $* dataset..."
+	@echo "---------------------------------------------------" > $(RESULTS_DIR)/tarjan_vishkin_seq_$*.txt
+	@echo "Results for tarjan_vishkin_seq on $* dataset" >> $(RESULTS_DIR)/tarjan_vishkin_seq_$*.txt
+	@echo "Timestamp: $$(date)" >> $(RESULTS_DIR)/tarjan_vishkin_seq_$*.txt
+	@echo "---------------------------------------------------" >> $(RESULTS_DIR)/tarjan_vishkin_seq_$*.txt
+	$< datasets/$*.txt >> $(RESULTS_DIR)/tarjan_vishkin_seq_$*.txt 2>&1
+	@echo "Completed $< on $* dataset. Results in $(RESULTS_DIR)/tarjan_vishkin_seq_$*.txt"
 
 # Generate summary report of all results
 report:
@@ -65,7 +68,7 @@ report:
 	@for algo in $(TARGETS); do \
 		for dataset in $(DATASETS); do \
 			echo "Algorithm: $$algo - Dataset: $$dataset" >> $(RESULTS_DIR)/summary_report.txt; \
-			grep -A 1 "Computation time" $(RESULTS_DIR)/$${algo}_$${dataset}.txt | head -2 >> $(RESULTS_DIR)/summary_report.txt; \
+			grep -A 1 "Computation time" $(RESULTS_DIR)/$${algo}_$${dataset}.txt 2>/dev/null | head -2 >> $(RESULTS_DIR)/summary_report.txt || echo "  No results found" >> $(RESULTS_DIR)/summary_report.txt; \
 			echo "" >> $(RESULTS_DIR)/summary_report.txt; \
 		done; \
 	done
@@ -76,4 +79,9 @@ clean:
 	rm -rf bin
 	rm -rf $(RESULTS_DIR)
 
-.PHONY: all setup run run_small run_medium run_large report clean
+# Print the detected datasets (for debugging)
+list-datasets:
+	@echo "Detected datasets: $(DATASETS)"
+	@echo "Full paths: $(DATASETS_FULL)"
+
+.PHONY: all setup run report clean list-datasets
