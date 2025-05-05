@@ -1,43 +1,20 @@
-https://snap.stanford.edu/data/twitch_gamers.html
-https://snap.stanford.edu/data/ego-Facebook.html
-
 # Graph Biconnectivity Components Benchmarking
 
-This project implements and benchmarks several algorithms for finding biconnected components in graphs.
+This project is part of the Introduction to CS1.305 Algorithm Engineering Course at IIIT-H, as a course project. Here, we implement and benchmarks several algorithms across various dataset sizes and implementation for finding biconnected components in graphs.
 
 ## Implemented Algorithms
 
 1. **Slota-Madduri**
-   - Sequential implementation: `slota_madduri/slota_madduri_seq.c`
-   - Parallel implementation: `slota_madduri/slota_madduri_par.c`
+   - Sequential implementation: [slota_madduri/slota_madduri_seq.c](./slota_madduri/slota_madduri_seq.c)
+   - Parallel implementation: [slota_madduri/slota_madduri_par.c](./slota_madduri/slota_madduri_par.c)
 
 2. **Tarjan-Vishkin**
-   - Sequential implementation: `tarjan-viskin/tarjan_vishkin_seq.c` 
-   - Parallel implementation: `tarjan-viskin/tarjan_vishkin_par.c`
+   - Sequential implementation: [tarjan-viskin/tarjan_vishkin_seq.c](./tarjan-viskin/tarjan_vishkin_seq.c)
+   - Parallel implementation: [tarjan-viskin/tarjan_vishkin_par.c](./tarjan-viskin/tarjan_vishkin_par.c)
 
 3. **Jen-Schmidt**
-   - Sequential implementation: `jen-schmidt/jen_schmidt_seq.c`
-   - Parallel implementation: `jen-schmidt/jen_schmidt_par.c`
-
-## Performance Results
-
-### Sequential Performance
-**Slota Madduri**
-- Small: 0.00554 seconds ; 0.00562 seconds
-- Medium: 1.37 seconds ; 1.34 seconds
-- Large: 44444.38883 seconds ; 44463.96789 seconds
-
-Performance for the other algorithms will be measured and documented after running the benchmarks.
-
-## Datasets
-The algorithms are tested on three datasets of different sizes:
-- Small: `datasets/small.txt`
-- Medium: `datasets/medium.txt` 
-- Large: `datasets/large.txt`
-
-Dataset sources:
-- https://snap.stanford.edu/data/twitch_gamers.html
-- https://snap.stanford.edu/data/ego-Facebook.html
+   - Sequential implementation: [jen-schmidt/jen_schmidt_seq.c](./jen-schmidt/jen_schmidt_seq.c)
+   - Parallel implementation: [jen-schmidt/jen_schmidt_par.c](./jen-schmidt/jen_schmidt_par.c)
 
 ## Running the Benchmarks
 
@@ -83,11 +60,19 @@ make -f Makefile.par report
 make -f Makefile.par clean
 ```
 
+## Performance Results
+
+### Sequential Performance
+**Slota Madduri**
+- Small: 0.00554 seconds ; 0.00562 seconds
+- Medium: 1.37 seconds ; 1.34 seconds
+- Large: 44444.38883 seconds ; 44463.96789 seconds
+
+[TODO] Performance for the other algorithms will be measured and documented after running the benchmarks.
+
 ## Results Analysis
 
-The sequential results are saved in the `results_seq` directory, while parallel results are saved in the `results_par` directory.
-
-For parallel implementations, a scaling analysis report is generated that compares performance across different thread counts (2, 4, 8, and 16 threads).
+[TODO] Analysis of the performance results will be added here, including comparisons between sequential and parallel implementations, and insights into the scalability of each algorithm.
 
 ## Compiling Individual Programs
 
@@ -111,3 +96,13 @@ And run them with:
 ./slota_seq datasets/small.txt
 OMP_NUM_THREADS=4 ./slota_par datasets/medium.txt
 ```
+
+## Datasets
+The algorithms are tested on three datasets of different sizes:
+- Small: `datasets/small.txt`
+- Medium: `datasets/medium.txt` 
+- Large: `datasets/large.txt`
+
+Dataset sources:
+- https://snap.stanford.edu/data/twitch_gamers.html
+- https://snap.stanford.edu/data/ego-Facebook.html
