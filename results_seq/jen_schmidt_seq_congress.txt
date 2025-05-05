@@ -1,0 +1,14 @@
+---------------------------------------------------
+Results for jen_schmidt_seq on congress dataset
+Timestamp: Mon May  5 04:35:47 PM IST 2025
+---------------------------------------------------
+Loading graph from datasets/congress.txt...
+Initializing graph with 474 nodes...
+Loading edges...
+Graph loaded: 474 nodes, 13289 edges
+Graph loaded from datasets/congress.txt with 474 nodes
+Running sequential Jen-Schmidt computation...
+Computation time: 0.00030 seconds
+Found 1 biconnected components:
+Component 1: Size: 10190, Edges: (0-0) (0-0) (0-0) (0-0) (0-0) (0-0) (0-0) (0-0) (0-0) (0-0) ... (and 10180 more)
+Total execution time: 0.00238 seconds

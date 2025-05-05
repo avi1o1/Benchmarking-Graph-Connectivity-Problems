@@ -1,0 +1,13 @@
+---------------------------------------------------
+Results for tarjan_vishkin_seq on github dataset
+Timestamp: Mon May  5 04:35:52 PM IST 2025
+---------------------------------------------------
+Loading graph from datasets/github.txt...
+Initializing graph with 37699 nodes...
+Loading edges...
+Graph loaded: 37699 nodes, 0 edges
+Graph loaded from datasets/github.txt with 37699 nodes
+Running sequential Tarjan-Vishkin computation...
+Computation time: 0.00028 seconds
+Found 0 biconnected components:
+Total execution time: 0.01932 seconds

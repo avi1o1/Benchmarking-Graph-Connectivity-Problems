@@ -1,0 +1,13 @@
+---------------------------------------------------
+Results for bin/tarjan_vishkin_par on github dataset with 4 threads
+Timestamp: 
+---------------------------------------------------
+Loading graph from datasets/github.txt...
+Initializing graph with 37699 nodes...
+Loading edges...
+Graph loaded: 37699 nodes, 0 edges
+Graph loaded from datasets/github.txt with 37699 nodes
+Running parallel Tarjan-Vishkin computation with 4 threads...
+Computation time: 0.32961 seconds
+Found 0 biconnected components:
+Total execution time: 0.35721 seconds

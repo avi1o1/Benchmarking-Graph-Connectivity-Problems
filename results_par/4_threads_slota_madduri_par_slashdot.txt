@@ -1,0 +1,4 @@
+---------------------------------------------------
+Results for bin/slota_madduri_par on slashdot dataset with 4 threads
+Timestamp: 
+---------------------------------------------------

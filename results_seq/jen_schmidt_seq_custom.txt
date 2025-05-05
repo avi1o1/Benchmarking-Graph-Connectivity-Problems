@@ -1,0 +1,14 @@
+---------------------------------------------------
+Results for jen_schmidt_seq on custom dataset
+Timestamp: Mon May  5 04:35:47 PM IST 2025
+---------------------------------------------------
+Loading graph from datasets/custom.txt...
+Initializing graph with 49 nodes...
+Loading edges...
+Graph loaded: 49 nodes, 128 edges
+Graph loaded from datasets/custom.txt with 49 nodes
+Running sequential Jen-Schmidt computation...
+Computation time: 0.00001 seconds
+Found 1 biconnected components:
+Component 1: Size: 124, Edges: (0-0) (0-0) (0-0) (0-0) (0-0) (0-0) (0-0) (0-0) (0-0) (0-0) ... (and 114 more)
+Total execution time: 0.00009 seconds
