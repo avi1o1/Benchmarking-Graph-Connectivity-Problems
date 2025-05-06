@@ -1,6 +1,6 @@
 ---------------------------------------------------
 Results for slota_madduri_seq on lastfm dataset
-Timestamp: Mon May  5 04:35:52 PM IST 2025
+Timestamp: Tue May  6 07:20:34 PM IST 2025
 ---------------------------------------------------
 Loading graph from datasets/lastfm.txt...
 Initializing graph with 7623 nodes...
@@ -8,7 +8,7 @@ Loading edges...
 Graph loaded: 7623 nodes, 27806 edges
 Graph loaded from datasets/lastfm.txt with 7623 nodes
 Running sequential computation...
-Computation time: 0.93715 seconds
+Computation time: 0.98957 seconds
 Found 4743 maximal cliques:
 Clique 1: Size: 9, Nodes: 523 12 109 865 1222 1508 1936 2834 5856 
 Clique 2: Size: 9, Nodes: 762 377 472 2724 2733 3107 4808 5529 6788 
@@ -111,4 +111,4 @@ Clique 98: Size: 4, Nodes: 1270 797 4613 7497
 Clique 99: Size: 4, Nodes: 7089 1710 4037 5209 
 Clique 100: Size: 4, Nodes: 7600 518 4097 5656 
 ... (showing only 100 out of 4743 cliques)
-Total execution time: 0.94675 seconds
+Total execution time: 1.00037 seconds

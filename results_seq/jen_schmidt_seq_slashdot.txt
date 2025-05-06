@@ -1,6 +1,6 @@
 ---------------------------------------------------
 Results for jen_schmidt_seq on slashdot dataset
-Timestamp: Mon May  5 04:40:53 PM IST 2025
+Timestamp: Tue May  6 07:28:27 PM IST 2025
 ---------------------------------------------------
 Loading graph from datasets/slashdot.txt...
 Initializing graph with 82167 nodes...
@@ -8,7 +8,7 @@ Loading edges...
 Graph loaded: 82167 nodes, 948464 edges
 Graph loaded from datasets/slashdot.txt with 82167 nodes
 Running sequential Jen-Schmidt computation...
-Computation time: 0.06450 seconds
+Computation time: 0.12227 seconds
 Found 30287 biconnected components:
 Component 1: Size: 472975, Edges: (0-0) (0-0) (0-0) (0-0) (0-0) (0-0) (0-0) (0-0) (0-0) (0-0) ... (and 472965 more)
 Component 2: Size: 27, Edges: (0-0) (0-0) (0-0) (0-0) (0-0) (0-0) (0-0) (0-0) (0-0) (0-0) ... (and 17 more)
@@ -111,4 +111,4 @@ Component 98: Size: 4, Edges: (0-0) (0-0) (0-0) (0-0)
 Component 99: Size: 4, Edges: (0-0) (0-0) (0-0) (0-0) 
 Component 100: Size: 4, Edges: (0-0) (0-0) (0-0) (0-0) 
 ... (showing only 100 out of 30287 components)
-Total execution time: 0.45511 seconds
+Total execution time: 0.89760 seconds

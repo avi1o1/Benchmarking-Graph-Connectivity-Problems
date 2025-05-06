@@ -9,7 +9,7 @@ Graph loaded: 82167 nodes, 948464 edges
 Graph loaded from datasets/slashdot.txt with 82167 nodes
 Running parallel Jen-Schmidt computation with 8 threads...
 Found 8 connected components
-Computation time: 0.16511 seconds
+Computation time: 0.12302 seconds
 Found 30287 biconnected components:
 Component 1: Size: 472975, Nodes: 0 
 Component 2: Size: 27, Nodes: 0 
@@ -30298,4 +30298,4 @@ Component 30284: Size: 2, Nodes: 0
 Component 30285: Size: 2, Nodes: 0 
 Component 30286: Size: 2, Nodes: 0 
 Component 30287: Size: 2, Nodes: 0 
-Total execution time: 0.64597 seconds
+Total execution time: 0.61352 seconds

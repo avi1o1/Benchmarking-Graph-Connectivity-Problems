@@ -580,10 +580,11 @@ int main(int argc, char *argv[]) {
     if (argc > 1) {
         filename = argv[1];
     } else {
-        filename = "../datasets/small.txt";
+        filename = "../datasets/ custom.txt";
     }
     
-    clock_t start_time = clock();
+    // Use omp_get_wtime() for wall-clock time measurement
+    double start_time = omp_get_wtime();
     
     printf("Loading graph from %s...\n", filename);
     Graph* graph = load_graph_from_file(filename);
@@ -608,12 +609,11 @@ int main(int argc, char *argv[]) {
     
     init_component_list(&components, 1000);
     
-    clock_t compute_start = clock();
+    double compute_start = omp_get_wtime();
     jen_schmidt_biconnected_components_parallel(graph, &components);
-    clock_t compute_end = clock();
+    double compute_end = omp_get_wtime();
     
-    printf("Computation time: %.5f seconds\n", 
-           (double)(compute_end - compute_start) / CLOCKS_PER_SEC);
+    printf("Computation time: %.5f seconds\n", compute_end - compute_start);
     
     print_biconnected_components(&components, edges);
     
@@ -622,9 +622,8 @@ int main(int argc, char *argv[]) {
     free(edges);
     free_graph(graph);
     
-    clock_t end_time = clock();
-    printf("Total execution time: %.5f seconds\n", 
-           (double)(end_time - start_time) / CLOCKS_PER_SEC);
+    double end_time = omp_get_wtime();
+    printf("Total execution time: %.5f seconds\n", end_time - start_time);
     
     return 0;
 }

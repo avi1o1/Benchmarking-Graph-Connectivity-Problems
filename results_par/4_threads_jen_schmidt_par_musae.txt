@@ -9,7 +9,7 @@ Graph loaded: 22469 nodes, 171002 edges
 Graph loaded from datasets/musae.txt with 22469 nodes
 Running parallel Jen-Schmidt computation with 4 threads...
 Found 1 connected components
-Computation time: 0.03204 seconds
+Computation time: 0.06987 seconds
 Found 3078 biconnected components:
 Component 1: Size: 167138, Nodes: 0 
 Component 2: Size: 44, Nodes: 0 
@@ -3089,4 +3089,4 @@ Component 3075: Size: 2, Nodes: 0
 Component 3076: Size: 2, Nodes: 0 
 Component 3077: Size: 2, Nodes: 0 
 Component 3078: Size: 2, Nodes: 0 
-Total execution time: 0.09797 seconds
+Total execution time: 0.19055 seconds

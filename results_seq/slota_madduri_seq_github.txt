@@ -1,6 +1,6 @@
 ---------------------------------------------------
 Results for slota_madduri_seq on github dataset
-Timestamp: Mon May  5 04:35:48 PM IST 2025
+Timestamp: Tue May  6 07:20:26 PM IST 2025
 ---------------------------------------------------
 Loading graph from datasets/github.txt...
 Initializing graph with 37699 nodes...
@@ -8,7 +8,7 @@ Loading edges...
 Graph loaded: 37699 nodes, 0 edges
 Graph loaded from datasets/github.txt with 37699 nodes
 Running sequential computation...
-Computation time: 3.78467 seconds
+Computation time: 5.47842 seconds
 Found 37699 maximal cliques:
 Clique 1: Size: 1, Nodes: 0 
 Clique 2: Size: 1, Nodes: 1 
@@ -111,4 +111,4 @@ Clique 98: Size: 1, Nodes: 97
 Clique 99: Size: 1, Nodes: 98 
 Clique 100: Size: 1, Nodes: 99 
 ... (showing only 100 out of 37699 cliques)
-Total execution time: 3.99011 seconds
+Total execution time: 5.72457 seconds

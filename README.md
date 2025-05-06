@@ -89,8 +89,8 @@ gcc -O3 -Wall -fopenmp -o tarjan_par tarjan-viskin/tarjan_vishkin_par.c
 And run them with:
 
 ```bash
-./slota_seq datasets/small.txt
-OMP_NUM_THREADS=4 ./slota_par datasets/medium.txt
+./slota_seq datasets/ custom.txt
+OMP_NUM_THREADS=4 ./slota_par datasets/ custom.txt
 ```
 
 ## Datasets

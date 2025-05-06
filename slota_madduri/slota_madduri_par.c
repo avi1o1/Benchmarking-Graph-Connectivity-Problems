@@ -465,10 +465,10 @@ int main(int argc, char *argv[]) {
     if (argc > 1) {
         filename = argv[1];
     } else {
-        filename = "../datasets/large.txt";
+        filename = "../datasets/ custom.txt";
     }
 
-    clock_t start_time = clock();
+    double start_time = omp_get_wtime();
 
     printf("Loading graph from %s...\n", filename);
     Graph* graph = load_graph_from_file(filename);
@@ -481,23 +481,21 @@ int main(int argc, char *argv[]) {
     printf("Graph loaded from %s with %d nodes\n", filename, graph->num_nodes);
 
     CliqueList cliques;
-    printf("Running parallel computation...\n");
+    printf("Running parallel computation with %d threads...\n", omp_get_max_threads());
 
-    clock_t compute_start = clock();
+    double compute_start = omp_get_wtime();
     slota_madduri_maximal_cliques_parallel(graph, &cliques);
-    clock_t compute_end = clock();
+    double compute_end = omp_get_wtime();
 
-    printf("Computation time: %.5f seconds\n", 
-           (double)(compute_end - compute_start) / CLOCKS_PER_SEC);
+    printf("Computation time: %.5f seconds\n", compute_end - compute_start);
 
     print_cliques(&cliques);
 
     free_clique_list(&cliques);
     free_graph(graph);
 
-    clock_t end_time = clock();
-    printf("Total execution time: %.5f seconds\n", 
-           (double)(end_time - start_time) / CLOCKS_PER_SEC);
+    double end_time = omp_get_wtime();
+    printf("Total execution time: %.5f seconds\n", end_time - start_time);
 
     return 0;
 }

@@ -1,7 +1,7 @@
 # Makefile for parallel graph connectivity algorithms
 CC = gcc
 CFLAGS = -O3 -Wall -fopenmp
-THREAD_CONFIGS = 8
+THREAD_CONFIGS = 4 6 8
 
 # Directories
 TARGETS = slota_madduri_par jen_schmidt_par tarjan_vishkin_par

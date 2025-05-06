@@ -1,6 +1,6 @@
 ---------------------------------------------------
 Results for jen_schmidt_seq on lastfm dataset
-Timestamp: Mon May  5 04:35:53 PM IST 2025
+Timestamp: Tue May  6 07:20:35 PM IST 2025
 ---------------------------------------------------
 Loading graph from datasets/lastfm.txt...
 Initializing graph with 7623 nodes...
@@ -8,7 +8,7 @@ Loading edges...
 Graph loaded: 7623 nodes, 27806 edges
 Graph loaded from datasets/lastfm.txt with 7623 nodes
 Running sequential Jen-Schmidt computation...
-Computation time: 0.00179 seconds
+Computation time: 0.00146 seconds
 Found 1959 biconnected components:
 Component 1: Size: 25768, Edges: (0-0) (0-0) (0-0) (0-0) (0-0) (0-0) (0-0) (0-0) (0-0) (0-0) ... (and 25758 more)
 Component 2: Size: 11, Edges: (0-0) (0-0) (0-0) (0-0) (0-0) (0-0) (0-0) (0-0) (0-0) (0-0) ... (and 1 more)
@@ -111,4 +111,4 @@ Component 98: Size: 2, Edges: (0-0) (0-0)
 Component 99: Size: 2, Edges: (0-0) (0-0) 
 Component 100: Size: 2, Edges: (0-0) (0-0) 
 ... (showing only 100 out of 1959 components)
-Total execution time: 0.00991 seconds
+Total execution time: 0.00693 seconds

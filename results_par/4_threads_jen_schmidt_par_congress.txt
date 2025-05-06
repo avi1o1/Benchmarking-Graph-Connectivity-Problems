@@ -9,7 +9,7 @@ Graph loaded: 474 nodes, 13289 edges
 Graph loaded from datasets/congress.txt with 474 nodes
 Running parallel Jen-Schmidt computation with 4 threads...
 Found 1 connected components
-Computation time: 0.00094 seconds
+Computation time: 0.00179 seconds
 Found 1 biconnected components:
 Component 1: Size: 10190, Nodes: 0 
-Total execution time: 0.00403 seconds
+Total execution time: 0.00595 seconds

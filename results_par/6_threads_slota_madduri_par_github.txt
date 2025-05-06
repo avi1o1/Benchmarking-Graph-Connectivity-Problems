@@ -1,0 +1,114 @@
+---------------------------------------------------
+Results for bin/slota_madduri_par on github dataset with 6 threads
+Timestamp: 
+---------------------------------------------------
+Loading graph from datasets/github.txt...
+Initializing graph with 37699 nodes...
+Loading edges...
+Graph loaded: 37699 nodes, 0 edges
+Graph loaded from datasets/github.txt with 37699 nodes
+Running parallel computation with 6 threads...
+Computation time: 2.44751 seconds
+Found 37699 maximal cliques:
+Clique 1: Size: 1, Nodes: 0 
+Clique 2: Size: 1, Nodes: 6 
+Clique 3: Size: 1, Nodes: 7 
+Clique 4: Size: 1, Nodes: 11 
+Clique 5: Size: 1, Nodes: 14 
+Clique 6: Size: 1, Nodes: 15 
+Clique 7: Size: 1, Nodes: 21 
+Clique 8: Size: 1, Nodes: 22 
+Clique 9: Size: 1, Nodes: 28 
+Clique 10: Size: 1, Nodes: 29 
+Clique 11: Size: 1, Nodes: 35 
+Clique 12: Size: 1, Nodes: 38 
+Clique 13: Size: 1, Nodes: 42 
+Clique 14: Size: 1, Nodes: 45 
+Clique 15: Size: 1, Nodes: 49 
+Clique 16: Size: 1, Nodes: 52 
+Clique 17: Size: 1, Nodes: 56 
+Clique 18: Size: 1, Nodes: 57 
+Clique 19: Size: 1, Nodes: 63 
+Clique 20: Size: 1, Nodes: 64 
+Clique 21: Size: 1, Nodes: 70 
+Clique 22: Size: 1, Nodes: 71 
+Clique 23: Size: 1, Nodes: 77 
+Clique 24: Size: 1, Nodes: 78 
+Clique 25: Size: 1, Nodes: 84 
+Clique 26: Size: 1, Nodes: 85 
+Clique 27: Size: 1, Nodes: 91 
+Clique 28: Size: 1, Nodes: 92 
+Clique 29: Size: 1, Nodes: 98 
+Clique 30: Size: 1, Nodes: 99 
+Clique 31: Size: 1, Nodes: 103 
+Clique 32: Size: 1, Nodes: 106 
+Clique 33: Size: 1, Nodes: 109 
+Clique 34: Size: 1, Nodes: 113 
+Clique 35: Size: 1, Nodes: 116 
+Clique 36: Size: 1, Nodes: 120 
+Clique 37: Size: 1, Nodes: 121 
+Clique 38: Size: 1, Nodes: 127 
+Clique 39: Size: 1, Nodes: 130 
+Clique 40: Size: 1, Nodes: 134 
+Clique 41: Size: 1, Nodes: 135 
+Clique 42: Size: 1, Nodes: 141 
+Clique 43: Size: 1, Nodes: 142 
+Clique 44: Size: 1, Nodes: 147 
+Clique 45: Size: 1, Nodes: 149 
+Clique 46: Size: 1, Nodes: 154 
+Clique 47: Size: 1, Nodes: 157 
+Clique 48: Size: 1, Nodes: 161 
+Clique 49: Size: 1, Nodes: 165 
+Clique 50: Size: 1, Nodes: 169 
+Clique 51: Size: 1, Nodes: 173 
+Clique 52: Size: 1, Nodes: 175 
+Clique 53: Size: 1, Nodes: 180 
+Clique 54: Size: 1, Nodes: 185 
+Clique 55: Size: 1, Nodes: 189 
+Clique 56: Size: 1, Nodes: 191 
+Clique 57: Size: 1, Nodes: 196 
+Clique 58: Size: 1, Nodes: 199 
+Clique 59: Size: 1, Nodes: 204 
+Clique 60: Size: 1, Nodes: 207 
+Clique 61: Size: 1, Nodes: 213 
+Clique 62: Size: 1, Nodes: 216 
+Clique 63: Size: 1, Nodes: 219 
+Clique 64: Size: 1, Nodes: 224 
+Clique 65: Size: 1, Nodes: 228 
+Clique 66: Size: 1, Nodes: 231 
+Clique 67: Size: 1, Nodes: 235 
+Clique 68: Size: 1, Nodes: 239 
+Clique 69: Size: 1, Nodes: 243 
+Clique 70: Size: 1, Nodes: 247 
+Clique 71: Size: 1, Nodes: 252 
+Clique 72: Size: 1, Nodes: 256 
+Clique 73: Size: 1, Nodes: 261 
+Clique 74: Size: 1, Nodes: 264 
+Clique 75: Size: 1, Nodes: 268 
+Clique 76: Size: 1, Nodes: 274 
+Clique 77: Size: 1, Nodes: 278 
+Clique 78: Size: 1, Nodes: 284 
+Clique 79: Size: 1, Nodes: 288 
+Clique 80: Size: 1, Nodes: 294 
+Clique 81: Size: 1, Nodes: 298 
+Clique 82: Size: 1, Nodes: 304 
+Clique 83: Size: 1, Nodes: 308 
+Clique 84: Size: 1, Nodes: 314 
+Clique 85: Size: 1, Nodes: 318 
+Clique 86: Size: 1, Nodes: 325 
+Clique 87: Size: 1, Nodes: 330 
+Clique 88: Size: 1, Nodes: 336 
+Clique 89: Size: 1, Nodes: 340 
+Clique 90: Size: 1, Nodes: 346 
+Clique 91: Size: 1, Nodes: 351 
+Clique 92: Size: 1, Nodes: 356 
+Clique 93: Size: 1, Nodes: 360 
+Clique 94: Size: 1, Nodes: 366 
+Clique 95: Size: 1, Nodes: 370 
+Clique 96: Size: 1, Nodes: 376 
+Clique 97: Size: 1, Nodes: 380 
+Clique 98: Size: 1, Nodes: 386 
+Clique 99: Size: 1, Nodes: 390 
+Clique 100: Size: 1, Nodes: 394 
+... (showing only 100 out of 37699 cliques)
+Total execution time: 2.67448 seconds

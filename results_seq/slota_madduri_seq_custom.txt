@@ -1,6 +1,6 @@
 ---------------------------------------------------
 Results for slota_madduri_seq on custom dataset
-Timestamp: Mon May  5 04:35:47 PM IST 2025
+Timestamp: Tue May  6 07:20:25 PM IST 2025
 ---------------------------------------------------
 Loading graph from datasets/custom.txt...
 Initializing graph with 49 nodes...
@@ -8,7 +8,7 @@ Loading edges...
 Graph loaded: 49 nodes, 128 edges
 Graph loaded from datasets/custom.txt with 49 nodes
 Running sequential computation...
-Computation time: 0.00004 seconds
+Computation time: 0.00003 seconds
 Found 26 maximal cliques:
 Clique 1: Size: 3, Nodes: 11 10 17 
 Clique 2: Size: 3, Nodes: 19 12 20 
@@ -36,4 +36,4 @@ Clique 23: Size: 1, Nodes: 41
 Clique 24: Size: 1, Nodes: 35 
 Clique 25: Size: 1, Nodes: 21 
 Clique 26: Size: 1, Nodes: 47 
-Total execution time: 0.00015 seconds
+Total execution time: 0.00011 seconds

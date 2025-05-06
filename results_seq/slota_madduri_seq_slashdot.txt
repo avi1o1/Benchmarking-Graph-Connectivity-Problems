@@ -1,6 +1,6 @@
 ---------------------------------------------------
 Results for slota_madduri_seq on slashdot dataset
-Timestamp: Mon May  5 04:36:08 PM IST 2025
+Timestamp: Tue May  6 07:21:14 PM IST 2025
 ---------------------------------------------------
 Loading graph from datasets/slashdot.txt...
 Initializing graph with 82167 nodes...
@@ -8,7 +8,7 @@ Loading edges...
 Graph loaded: 82167 nodes, 948464 edges
 Graph loaded from datasets/slashdot.txt with 82167 nodes
 Running sequential computation...
-Computation time: 284.54305 seconds
+Computation time: 430.99673 seconds
 Found 62428 maximal cliques:
 Clique 1: Size: 12, Nodes: 5394 162 890 1519 1544 1558 1970 2487 2540 5211 5503 32097 
 Clique 2: Size: 10, Nodes: 17272 155 544 756 2259 2319 5912 6489 6497 8460 
@@ -111,4 +111,4 @@ Clique 98: Size: 4, Nodes: 6090 130 2942 4809
 Clique 99: Size: 4, Nodes: 7797 6791 8708 16263 
 Clique 100: Size: 4, Nodes: 11049 20169 26666 29346 
 ... (showing only 100 out of 62428 cliques)
-Total execution time: 285.33273 seconds
+Total execution time: 432.44583 seconds

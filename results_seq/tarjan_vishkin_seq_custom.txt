@@ -1,6 +1,6 @@
 ---------------------------------------------------
 Results for tarjan_vishkin_seq on custom dataset
-Timestamp: Mon May  5 04:35:47 PM IST 2025
+Timestamp: Tue May  6 07:20:25 PM IST 2025
 ---------------------------------------------------
 Loading graph from datasets/custom.txt...
 Initializing graph with 49 nodes...
@@ -10,55 +10,55 @@ Graph loaded from datasets/custom.txt with 49 nodes
 Running sequential Tarjan-Vishkin computation...
 Computation time: 0.00002 seconds
 Found 51 biconnected components:
-Component 1: Size: 5, Edges: (540029194-822751793) (822752305-892411956) (840971825-925960755) (171062048-857749042) (859054136-540029962) 
-Component 2: Size: 5, Edges: (808656953-540095242) (857748019-858982969) (171455520-874525236) (889862432-170996000) (822752564-942940216) 
-Component 3: Size: 5, Edges: (942743607-540619018) (839528498-825368624) (171455008-840970802) (825428535-171455264) (0-0) 
-Component 4: Size: 5, Edges: (856307763-959651896) (959646261-171324448) (858857527-540487946) (874526218-2617) (0-0) 
-Component 5: Size: 4, Edges: (540291850-856306995) (909320245-540488458) (874526259-926091827) (540160266-822753075) 
-Component 6: Size: 4, Edges: (540423178-873084724) (942940215-924856330) (839530802-892477492) (942940208-540357642) 
-Component 7: Size: 4, Edges: (941633802-958411274) (822753586-875765808) (923416096-171258144) (540488202-856308018) 
-Component 8: Size: 4, Edges: (540160522-839529266) (875700275-540357130) (857748530-892471857) (0-0) 
-Component 9: Size: 4, Edges: (889860401-171061536) (858857526-824194826) (540357386-873084724) (875700278-540160522) 
-Component 10: Size: 4, Edges: (540543540-956970289) (171323680-824193073) (892543024-540160778) (0-0) 
-Component 11: Size: 4, Edges: (170930720-840971313) (892406321-171061792) (540553738-856306483) (0-0) 
-Component 12: Size: 4, Edges: (825297463-171454752) (824193585-858851897) (540225802-822751538) (0-0) 
-Component 13: Size: 4, Edges: (1556575392-25219) (923416608-940194080) (840970290-825362999) (540422922-856305972) 
-Component 14: Size: 3, Edges: (839530034-926031926) (926026291-171193120) (540292106-856308020) 
-Component 15: Size: 3, Edges: (892537393-171062304) (171258912-825499704) (0-0) 
-Component 16: Size: 3, Edges: (842276913-540226570) (540356874-839530803) (0-0) 
-Component 17: Size: 3, Edges: (856306996-909385776) (873084468-926162994) (0-0) 
-Component 18: Size: 3, Edges: (540029962-873083188) (874524724-825494071) (840970250-540346932) 
-Component 19: Size: 3, Edges: (675299648-29731) (675299648-29731) (959515189-171323936) 
-Component 20: Size: 3, Edges: (889861408-923416096) (822753568-825303088) (0-0) 
-Component 21: Size: 3, Edges: (824193802-540281392) (875831344-540357130) (822753585-942743602) 
-Component 22: Size: 2, Edges: (858988593-540619530) (0-0) 
-Component 23: Size: 2, Edges: (873083956-892608564) (0-0) 
-Component 24: Size: 2, Edges: (857749554-959580725) (171193376-874526771) 
-Component 25: Size: 2, Edges: (839530290-825434166) (0-0) 
-Component 26: Size: 2, Edges: (540422410-822753073) (171324192-857747507) 
-Component 27: Size: 2, Edges: (822753588-873083424) (0-0) 
-Component 28: Size: 2, Edges: (858917433-170930976) (0-0) 
-Component 29: Size: 2, Edges: (875634744-540029194) (856307507-959651892) 
-Component 30: Size: 2, Edges: (1556575392-25219) (0-0) 
-Component 31: Size: 2, Edges: (842080305-540225802) (0-0) 
-Component 32: Size: 2, Edges: (858988598-540029450) (0-0) 
-Component 33: Size: 2, Edges: (0-0) (0-0) 
-Component 34: Size: 2, Edges: (540553738-839530802) (0-0) 
-Component 35: Size: 1, Edges: (540019257-873085236) 
-Component 36: Size: 1, Edges: (171192864-840972337) 
-Component 37: Size: 1, Edges: (170931232-874525747) 
-Component 38: Size: 1, Edges: (0-0) 
-Component 39: Size: 1, Edges: (0-0) 
-Component 40: Size: 1, Edges: (839530801-892477491) 
-Component 41: Size: 1, Edges: (856306227-858988594) 
-Component 42: Size: 1, Edges: (0-0) 
-Component 43: Size: 1, Edges: (0-0) 
-Component 44: Size: 1, Edges: (0-0) 
-Component 45: Size: 1, Edges: (0-0) 
-Component 46: Size: 1, Edges: (0-0) 
-Component 47: Size: 1, Edges: (0-0) 
-Component 48: Size: 1, Edges: (0-0) 
-Component 49: Size: 1, Edges: (0-0) 
-Component 50: Size: 1, Edges: (0-0) 
-Component 51: Size: 1, Edges: (0-0) 
+Component 1: Size: 5, Nodes: 0 6 7 8 14 40 
+Component 2: Size: 5, Nodes: 12 18 19 26 28 43 
+Component 3: Size: 5, Nodes: 4 9 10 11 17 18 
+Component 4: Size: 5, Nodes: 17 22 23 24 25 44 
+Component 5: Size: 4, Nodes: 15 21 22 23 29 
+Component 6: Size: 4, Nodes: 24 30 31 32 38 
+Component 7: Size: 4, Nodes: 9 26 33 34 40 
+Component 8: Size: 4, Nodes: 6 7 12 13 14 
+Component 9: Size: 4, Nodes: 30 36 37 38 44 
+Component 10: Size: 4, Nodes: 35 39 40 41 47 
+Component 11: Size: 4, Nodes: 39 41 45 46 47 
+Component 12: Size: 4, Nodes: 36 42 43 44 48 
+Component 13: Size: 4, Nodes: 0 3 4 10 44 
+Component 14: Size: 3, Nodes: 8 15 16 32 
+Component 15: Size: 3, Nodes: 14 21 26 28 
+Component 16: Size: 3, Nodes: 27 28 32 34 
+Component 17: Size: 3, Nodes: 11 29 31 36 
+Component 18: Size: 3, Nodes: 18 25 26 32 
+Component 19: Size: 3, Nodes: 0 1 2 9 
+Component 20: Size: 3, Nodes: 2 3 4 5 
+Component 21: Size: 3, Nodes: 28 34 35 42 
+Component 22: Size: 2, Nodes: 6 14 38 
+Component 23: Size: 2, Nodes: 28 29 34 
+Component 24: Size: 2, Nodes: 9 16 23 
+Component 25: Size: 2, Nodes: 33 38 45 
+Component 26: Size: 2, Nodes: 9 10 17 
+Component 27: Size: 2, Nodes: 32 39 45 
+Component 28: Size: 2, Nodes: 5 12 20 
+Component 29: Size: 2, Nodes: 34 41 48 
+Component 30: Size: 2, Nodes: 1 4 10 
+Component 31: Size: 2, Nodes: 6 8 12 
+Component 32: Size: 2, Nodes: 23 25 30 
+Component 33: Size: 2, Nodes: 38 44 48 
+Component 34: Size: 2, Nodes: 16 17 47 
+Component 35: Size: 1, Nodes: 20 27 
+Component 36: Size: 1, Nodes: 1 8 
+Component 37: Size: 1, Nodes: 13 20 
+Component 38: Size: 1, Nodes: 37 42 
+Component 39: Size: 1, Nodes: 9 18 
+Component 40: Size: 1, Nodes: 4 28 
+Component 41: Size: 1, Nodes: 19 20 
+Component 42: Size: 1, Nodes: 2 8 
+Component 43: Size: 1, Nodes: 15 23 
+Component 44: Size: 1, Nodes: 29 45 
+Component 45: Size: 1, Nodes: 16 18 
+Component 46: Size: 1, Nodes: 34 46 
+Component 47: Size: 1, Nodes: 26 28 
+Component 48: Size: 1, Nodes: 30 32 
+Component 49: Size: 1, Nodes: 39 47 
+Component 50: Size: 1, Nodes: 0 1 
+Component 51: Size: 1, Nodes: 5 48 
 Total execution time: 0.00011 seconds

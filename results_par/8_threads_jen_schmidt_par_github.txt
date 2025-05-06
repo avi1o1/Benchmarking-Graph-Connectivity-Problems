@@ -9,6 +9,6 @@ Graph loaded: 37699 nodes, 0 edges
 Graph loaded from datasets/github.txt with 37699 nodes
 Running parallel Jen-Schmidt computation with 8 threads...
 Found 37699 connected components
-Computation time: 0.29398 seconds
+Computation time: 0.06290 seconds
 Found 0 biconnected components:
-Total execution time: 0.31578 seconds
+Total execution time: 0.09645 seconds

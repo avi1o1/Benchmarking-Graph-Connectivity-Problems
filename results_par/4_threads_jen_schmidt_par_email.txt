@@ -9,7 +9,7 @@ Graph loaded: 1004 nodes, 25571 edges
 Graph loaded from datasets/email.txt with 1004 nodes
 Running parallel Jen-Schmidt computation with 4 threads...
 Found 20 connected components
-Computation time: 0.00160 seconds
+Computation time: 0.00323 seconds
 Found 96 biconnected components:
 Component 1: Size: 15928, Nodes: 0 
 Component 2: Size: 2, Nodes: 0 
@@ -107,4 +107,4 @@ Component 93: Size: 2, Nodes: 0
 Component 94: Size: 2, Nodes: 0 
 Component 95: Size: 2, Nodes: 0 
 Component 96: Size: 2, Nodes: 0 
-Total execution time: 0.00958 seconds
+Total execution time: 0.01892 seconds

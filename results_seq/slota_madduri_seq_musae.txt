@@ -1,6 +1,6 @@
 ---------------------------------------------------
 Results for slota_madduri_seq on musae dataset
-Timestamp: Mon May  5 04:35:53 PM IST 2025
+Timestamp: Tue May  6 07:20:35 PM IST 2025
 ---------------------------------------------------
 Loading graph from datasets/musae.txt...
 Initializing graph with 22469 nodes...
@@ -8,7 +8,7 @@ Loading edges...
 Graph loaded: 22469 nodes, 171002 edges
 Graph loaded from datasets/musae.txt with 22469 nodes
 Running sequential computation...
-Computation time: 14.81427 seconds
+Computation time: 37.60538 seconds
 Found 12346 maximal cliques:
 Clique 1: Size: 55, Nodes: 1617 43 567 838 1125 1516 2159 2531 3073 3102 3980 4030 4076 4400 4526 4750 5009 5316 5524 5588 ... (and 35 more)
 Clique 2: Size: 27, Nodes: 4824 663 665 936 2109 3483 4061 4282 6085 6330 6580 7056 9058 9341 10784 11078 11346 12393 13395 17591 ... (and 7 more)
@@ -111,4 +111,4 @@ Clique 98: Size: 8, Nodes: 12445 2939 2959 6337 10932 11854 18409 18626
 Clique 99: Size: 8, Nodes: 534 1121 3082 4034 5232 5920 7657 16838 
 Clique 100: Size: 8, Nodes: 12463 253 976 15950 15962 16092 17383 19648 
 ... (showing only 100 out of 12346 cliques)
-Total execution time: 14.89263 seconds
+Total execution time: 37.72633 seconds

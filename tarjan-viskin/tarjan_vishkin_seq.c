@@ -8,6 +8,7 @@
 #include <stdbool.h>
 #include <string.h>
 #include <time.h>
+#include <math.h> // Add math.h for fabs function
 
 // Adjacency list node
 typedef struct AdjListNode {
@@ -40,6 +41,7 @@ typedef struct {
     BiconnectedComponent* components;
     int count;
     int capacity;
+    Edge* edges; // Store edges for later printing, matching the parallel version
 } ComponentList;
 
 // Structure for UNION-FIND operations
@@ -212,6 +214,10 @@ void free_component_list(ComponentList* list) {
         free(list->components[i].edges);
     }
     free(list->components);
+    if (list->edges) {
+        free(list->edges);
+    }
+    list->edges = NULL;
     list->components = NULL;
     list->count = 0;
     list->capacity = 0;
@@ -278,6 +284,12 @@ void tarjan_vishkin_biconnected_components(Graph* graph, ComponentList* result) 
         exit(EXIT_FAILURE);
     }
     
+    // Initialize edges array to avoid undefined behavior
+    for (int i = 0; i < m; i++) {
+        edges[i].src = -1;
+        edges[i].dest = -1;
+    }
+    
     // Initialize DFS time
     int time = 0;
     
@@ -330,13 +342,31 @@ void tarjan_vishkin_biconnected_components(Graph* graph, ComponentList* result) 
     int* component_id = (int*)malloc(m * sizeof(int));
     int component_count = 0;
     
+    // First, have all find the root for each edge
     for (int i = 0; i < m; i++) {
-        int root = find(&ds, i);
-        component_id[i] = root;
-        if (root == i) {
+        component_id[i] = find(&ds, i);
+    }
+    
+    // Count unique roots as components
+    int* is_root = (int*)calloc(m, sizeof(int));
+    if (!is_root) {
+        fprintf(stderr, "Memory allocation failed for is_root array\n");
+        exit(EXIT_FAILURE);
+    }
+    
+    for (int i = 0; i < m; i++) {
+        if (component_id[i] == i) {
+            is_root[i] = 1;
+        }
+    }
+    
+    for (int i = 0; i < m; i++) {
+        if (is_root[i]) {
             component_count++;
         }
     }
+    
+    free(is_root);
     
     // Create arrays for each component
     int** component_edges = (int**)malloc(component_count * sizeof(int*));
@@ -363,15 +393,15 @@ void tarjan_vishkin_biconnected_components(Graph* graph, ComponentList* result) 
         }
     }
     
-    // Group edges by biconnected component
+    // Group edges by biconnected component with a simpler approach
     for (int i = 0; i < m; i++) {
-        int root = find(&ds, i);
+        int root = find(&ds, i);  // Re-find to ensure consistency
         int component = component_map[root];
         
         if (component_sizes[component] == component_capacities[component]) {
             component_capacities[component] *= 2;
             component_edges[component] = (int*)realloc(component_edges[component], 
-                                                    component_capacities[component] * sizeof(int));
+                                                   component_capacities[component] * sizeof(int));
             if (!component_edges[component]) {
                 fprintf(stderr, "Memory allocation failed for component edges\n");
                 exit(EXIT_FAILURE);
@@ -383,16 +413,30 @@ void tarjan_vishkin_biconnected_components(Graph* graph, ComponentList* result) 
     
     // Add components to result
     init_component_list(result, component_count);
+    
+    // Make a copy of edges to avoid memory issues
+    Edge* edges_copy = (Edge*)malloc(m * sizeof(Edge));
+    if (!edges_copy) {
+        fprintf(stderr, "Memory allocation failed for edges copy\n");
+        exit(EXIT_FAILURE);
+    }
+    
+    // Copy edge data
+    memcpy(edges_copy, edges, m * sizeof(Edge));
+    
+    // Store the edges in the component list - just like the parallel version
+    result->edges = edges_copy;
+    
     for (int i = 0; i < component_count; i++) {
         add_component_to_list(result, component_edges[i], component_sizes[i]);
         free(component_edges[i]);
     }
     
-    // Clean up
+    // Clean up - but don't free edges since we're keeping a copy
     free(preorder);
     free(low);
     free(visited);
-    free(edges);
+    free(edges);  // Free original edges array
     free(component_id);
     free(component_edges);
     free(component_sizes);
@@ -405,6 +449,20 @@ void tarjan_vishkin_biconnected_components(Graph* graph, ComponentList* result) 
 void print_biconnected_components(ComponentList* components, Edge* edges) {
     printf("Found %d biconnected components:\n", components->count);
     
+    // Find max node id to allocate properly sized array
+    int max_node_id = 0;
+    for (int i = 0; i < components->count; i++) {
+        for (int j = 0; j < components->components[i].size; j++) {
+            int edge_id = components->components[i].edges[j];
+            if (edge_id >= 0 && edges[edge_id].src > max_node_id) {
+                max_node_id = edges[edge_id].src;
+            }
+            if (edge_id >= 0 && edges[edge_id].dest > max_node_id) {
+                max_node_id = edges[edge_id].dest;
+            }
+        }
+    }
+    
     // Sort components by size (largest first)
     for (int i = 0; i < components->count - 1; i++) {
         for (int j = i + 1; j < components->count; j++) {
@@ -416,24 +474,42 @@ void print_biconnected_components(ComponentList* components, Edge* edges) {
         }
     }
     
-    // Print each component (limit output for very large results)
-    int max_to_print = (components->count > 100) ? 100 : components->count;
-    for (int i = 0; i < max_to_print; i++) {
-        printf("Component %d: Size: %d, Edges: ", i + 1, components->components[i].size);
-        // Print only a few edges for large components
-        int edges_to_print = (components->components[i].size > 10) ? 10 : components->components[i].size;
-        for (int j = 0; j < edges_to_print; j++) {
-            int edge_id = components->components[i].edges[j];
-            printf("(%d-%d) ", edges[edge_id].src, edges[edge_id].dest);
+    // Print each component in a standardized format matching tarjan_vishkin_par
+    for (int i = 0; i < components->count; i++) {
+        printf("Component %d: Size: %d, Nodes: ", i + 1, components->components[i].size);
+        
+        // Create an array to track which nodes are in this component - dynamically sized
+        bool* node_in_component = (bool*)calloc(max_node_id + 1, sizeof(bool));
+        if (!node_in_component) {
+            fprintf(stderr, "Memory allocation failed for node tracking\n");
+            return;
         }
-        if (edges_to_print < components->components[i].size) {
-            printf("... (and %d more)", components->components[i].size - edges_to_print);
+        
+        // Mark all nodes that appear in this component
+        for (int j = 0; j < components->components[i].size; j++) {
+            int edge_id = components->components[i].edges[j];
+            // Ensure edge_id is valid
+            if (edge_id >= 0) {
+                int src = edges[edge_id].src;
+                int dest = edges[edge_id].dest;
+                if (src >= 0 && src <= max_node_id) {
+                    node_in_component[src] = true;
+                }
+                if (dest >= 0 && dest <= max_node_id) {
+                    node_in_component[dest] = true;
+                }
+            }
+        }
+        
+        // Print nodes in order
+        for (int node = 0; node <= max_node_id; node++) {
+            if (node_in_component[node]) {
+                printf("%d ", node);
+            }
         }
         printf("\n");
-    }
-    
-    if (max_to_print < components->count) {
-        printf("... (showing only %d out of %d components)\n", max_to_print, components->count);
+        
+        free(node_in_component);
     }
 }
 
@@ -515,10 +591,13 @@ int main(int argc, char *argv[]) {
     if (argc > 1) {
         filename = argv[1];
     } else {
-        filename = "../datasets/small.txt";
+        filename = "../datasets/custom.txt";
     }
     
-    clock_t start_time = clock();
+    // Use time() for wall-clock time in seconds to handle long-running processes
+    clock_t start_clock = clock();
+    time_t start_time_raw;
+    time(&start_time_raw);
     
     printf("Loading graph from %s...\n", filename);
     Graph* graph = load_graph_from_file(filename);
@@ -530,34 +609,50 @@ int main(int argc, char *argv[]) {
     
     printf("Graph loaded from %s with %d nodes\n", filename, graph->num_nodes);
     
-    // Prepare edge array for the results
-    Edge* edges = (Edge*)malloc(graph->num_edges * sizeof(Edge));
-    if (!edges) {
-        fprintf(stderr, "Memory allocation failed for edges array\n");
-        free_graph(graph);
-        return 1;
-    }
-    
     ComponentList components;
     printf("Running sequential Tarjan-Vishkin computation...\n");
     
-    clock_t compute_start = clock();
+    // Use both clock() for CPU time and time() for wall-clock time
+    clock_t compute_start_clock = clock();
+    time_t compute_start_raw;
+    time(&compute_start_raw);
+    
     tarjan_vishkin_biconnected_components(graph, &components);
-    clock_t compute_end = clock();
     
-    printf("Computation time: %.5f seconds\n", 
-           (double)(compute_end - compute_start) / CLOCKS_PER_SEC);
+    time_t compute_end_raw;
+    time(&compute_end_raw);
+    clock_t compute_end_clock = clock();
     
-    print_biconnected_components(&components, edges);
+    double compute_elapsed_clock = (double)(compute_end_clock - compute_start_clock) / CLOCKS_PER_SEC;
+    double compute_elapsed_time = difftime(compute_end_raw, compute_start_raw);
+    
+    // Use time-based measurement if it's significantly different from clock()
+    if (compute_elapsed_time > 1.0 && fabs(compute_elapsed_time - compute_elapsed_clock) > 1.0) {
+        printf("Computation time: %.2f minutes (%.2f seconds)\n", compute_elapsed_time / 60.0, compute_elapsed_time);
+    } else {
+        printf("Computation time: %.5f seconds\n", compute_elapsed_clock);
+    }
+    
+    // Use the edges stored in the components structure, not a separate array
+    print_biconnected_components(&components, components.edges);
     
     // Clean up
     free_component_list(&components);
-    free(edges);
     free_graph(graph);
     
-    clock_t end_time = clock();
-    printf("Total execution time: %.5f seconds\n", 
-           (double)(end_time - start_time) / CLOCKS_PER_SEC);
+    time_t end_time_raw;
+    time(&end_time_raw);
+    clock_t end_clock = clock();
+    
+    double total_elapsed_clock = (double)(end_clock - start_clock) / CLOCKS_PER_SEC;
+    double total_elapsed_time = difftime(end_time_raw, start_time_raw);
+    
+    // Use time-based measurement for total time if significantly different
+    if (total_elapsed_time > 1.0 && fabs(total_elapsed_time - total_elapsed_clock) > 1.0) {
+        printf("Total execution time: %.2f minutes (%.2f seconds)\n", total_elapsed_time / 60.0, total_elapsed_time);
+    } else {
+        printf("Total execution time: %.5f seconds\n", total_elapsed_clock);
+    }
     
     return 0;
 }

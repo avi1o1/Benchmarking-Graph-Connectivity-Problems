@@ -1,0 +1,15 @@
+---------------------------------------------------
+Results for bin/jen_schmidt_par on congress dataset with 6 threads
+Timestamp: 
+---------------------------------------------------
+Loading graph from datasets/congress.txt...
+Initializing graph with 474 nodes...
+Loading edges...
+Graph loaded: 474 nodes, 13289 edges
+Graph loaded from datasets/congress.txt with 474 nodes
+Running parallel Jen-Schmidt computation with 6 threads...
+Found 1 connected components
+Computation time: 0.00117 seconds
+Found 1 biconnected components:
+Component 1: Size: 10190, Nodes: 0 
+Total execution time: 0.00581 seconds

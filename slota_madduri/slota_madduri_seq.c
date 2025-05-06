@@ -453,7 +453,7 @@ int main(int argc, char *argv[]) {
     if (argc > 1) {
         filename = argv[1];
     } else {
-        filename = "datasets/large.txt";
+        filename = "datasets/ custom.txt";
     }
     
     clock_t start_time = clock();

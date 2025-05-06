@@ -7,108 +7,108 @@ Initializing graph with 474 nodes...
 Loading edges...
 Graph loaded: 474 nodes, 13289 edges
 Graph loaded from datasets/congress.txt with 474 nodes
-Running parallel computation...
-Computation time: 0.02268 seconds
-Found 202 maximal cliques:
+Running parallel computation with 8 threads...
+Computation time: 0.00625 seconds
+Found 203 maximal cliques:
 Clique 1: Size: 8, Nodes: 189 0 19 21 39 65 71 88 
-Clique 2: Size: 6, Nodes: 353 94 142 199 247 306 
-Clique 3: Size: 6, Nodes: 400 3 23 24 52 54 
-Clique 4: Size: 6, Nodes: 366 7 16 31 70 71 
-Clique 5: Size: 6, Nodes: 445 108 121 155 269 423 
-Clique 6: Size: 6, Nodes: 268 21 71 189 369 388 
-Clique 7: Size: 5, Nodes: 349 61 104 115 197 
-Clique 8: Size: 5, Nodes: 270 96 174 230 428 
-Clique 9: Size: 5, Nodes: 348 1 35 177 367 
-Clique 10: Size: 5, Nodes: 204 109 266 386 430 
-Clique 11: Size: 5, Nodes: 146 22 75 86 262 
-Clique 12: Size: 5, Nodes: 91 2 14 49 57 
-Clique 13: Size: 5, Nodes: 178 3 54 58 85 
-Clique 14: Size: 5, Nodes: 460 2 14 19 21 
-Clique 15: Size: 5, Nodes: 253 11 83 125 397 
-Clique 16: Size: 5, Nodes: 110 2 16 29 57 
-Clique 17: Size: 5, Nodes: 291 9 179 280 415 
-Clique 18: Size: 5, Nodes: 384 2 31 189 202 
-Clique 19: Size: 5, Nodes: 399 53 138 194 221 
-Clique 20: Size: 5, Nodes: 233 124 160 209 227 
-Clique 21: Size: 5, Nodes: 207 92 131 189 321 
-Clique 22: Size: 5, Nodes: 398 79 265 271 334 
-Clique 23: Size: 4, Nodes: 138 45 53 63 
-Clique 24: Size: 4, Nodes: 326 69 235 278 
-Clique 25: Size: 4, Nodes: 350 140 208 439 
-Clique 26: Size: 4, Nodes: 133 95 203 453 
-Clique 27: Size: 4, Nodes: 243 100 149 225 
-Clique 28: Size: 4, Nodes: 381 94 102 342 
-Clique 29: Size: 4, Nodes: 148 53 106 390 
-Clique 30: Size: 4, Nodes: 235 9 291 415 
-Clique 31: Size: 4, Nodes: 441 17 67 298 
-Clique 32: Size: 4, Nodes: 302 8 13 86 
-Clique 33: Size: 4, Nodes: 438 10 73 328 
-Clique 34: Size: 4, Nodes: 187 46 111 241 
-Clique 35: Size: 4, Nodes: 297 26 36 60 
-Clique 36: Size: 4, Nodes: 314 3 47 52 
-Clique 37: Size: 4, Nodes: 373 1 177 348 
-Clique 38: Size: 4, Nodes: 321 0 16 72 
-Clique 39: Size: 4, Nodes: 135 99 168 250 
-Clique 40: Size: 4, Nodes: 112 40 48 219 
-Clique 41: Size: 4, Nodes: 214 24 58 60 
-Clique 42: Size: 4, Nodes: 159 15 116 196 
-Clique 43: Size: 4, Nodes: 254 128 162 238 
-Clique 44: Size: 4, Nodes: 153 62 185 442 
-Clique 45: Size: 4, Nodes: 191 0 21 189 
-Clique 46: Size: 4, Nodes: 334 6 18 248 
-Clique 47: Size: 4, Nodes: 323 94 102 342 
-Clique 48: Size: 4, Nodes: 345 87 106 161 
-Clique 49: Size: 4, Nodes: 267 126 295 468 
-Clique 50: Size: 4, Nodes: 222 68 218 322 
-Clique 51: Size: 3, Nodes: 408 158 163 
-Clique 52: Size: 3, Nodes: 289 215 450 
-Clique 53: Size: 3, Nodes: 205 309 327 
-Clique 54: Size: 3, Nodes: 392 5 72 
-Clique 55: Size: 3, Nodes: 454 175 223 
-Clique 56: Size: 3, Nodes: 402 93 444 
-Clique 57: Size: 3, Nodes: 337 157 417 
-Clique 58: Size: 3, Nodes: 420 30 228 
-Clique 59: Size: 3, Nodes: 452 274 410 
-Clique 60: Size: 3, Nodes: 421 90 130 
-Clique 61: Size: 3, Nodes: 440 309 327 
-Clique 62: Size: 3, Nodes: 330 171 222 
-Clique 63: Size: 3, Nodes: 236 139 264 
-Clique 64: Size: 3, Nodes: 429 190 419 
-Clique 65: Size: 3, Nodes: 352 281 360 
-Clique 66: Size: 3, Nodes: 362 308 356 
-Clique 67: Size: 3, Nodes: 385 50 217 
-Clique 68: Size: 3, Nodes: 154 98 312 
-Clique 69: Size: 3, Nodes: 104 33 129 
-Clique 70: Size: 3, Nodes: 382 10 335 
-Clique 71: Size: 3, Nodes: 422 28 380 
-Clique 72: Size: 3, Nodes: 118 56 87 
-Clique 73: Size: 3, Nodes: 300 38 293 
-Clique 74: Size: 3, Nodes: 304 89 311 
-Clique 75: Size: 3, Nodes: 375 41 325 
-Clique 76: Size: 3, Nodes: 451 24 25 
-Clique 77: Size: 3, Nodes: 340 127 206 
-Clique 78: Size: 3, Nodes: 371 44 220 
-Clique 79: Size: 3, Nodes: 213 183 395 
-Clique 80: Size: 3, Nodes: 282 132 150 
-Clique 81: Size: 3, Nodes: 409 181 361 
-Clique 82: Size: 3, Nodes: 275 97 123 
-Clique 83: Size: 3, Nodes: 338 82 140 
-Clique 84: Size: 3, Nodes: 449 120 320 
-Clique 85: Size: 3, Nodes: 435 55 78 
-Clique 86: Size: 3, Nodes: 416 27 101 
-Clique 87: Size: 3, Nodes: 136 25 198 
-Clique 88: Size: 3, Nodes: 292 166 290 
-Clique 89: Size: 3, Nodes: 244 42 405 
-Clique 90: Size: 3, Nodes: 317 43 436 
-Clique 91: Size: 3, Nodes: 459 137 176 
-Clique 92: Size: 3, Nodes: 346 273 431 
-Clique 93: Size: 3, Nodes: 258 216 231 
-Clique 94: Size: 3, Nodes: 295 4 76 
-Clique 95: Size: 3, Nodes: 434 64 201 
-Clique 96: Size: 3, Nodes: 427 25 170 
-Clique 97: Size: 3, Nodes: 142 85 245 
-Clique 98: Size: 3, Nodes: 147 12 34 
-Clique 99: Size: 3, Nodes: 211 137 401 
-Clique 100: Size: 3, Nodes: 463 32 210 
-... (showing only 100 out of 202 cliques)
-Total execution time: 0.02578 seconds
+Clique 2: Size: 7, Nodes: 400 3 23 24 52 54 86 
+Clique 3: Size: 7, Nodes: 268 21 112 115 129 133 158 
+Clique 4: Size: 6, Nodes: 178 3 13 54 58 86 
+Clique 5: Size: 6, Nodes: 366 7 16 31 70 71 
+Clique 6: Size: 5, Nodes: 348 1 35 177 367 
+Clique 7: Size: 5, Nodes: 270 48 117 160 244 
+Clique 8: Size: 5, Nodes: 110 2 16 29 57 
+Clique 9: Size: 5, Nodes: 267 108 126 423 466 
+Clique 10: Size: 5, Nodes: 460 2 14 19 21 
+Clique 11: Size: 5, Nodes: 253 11 83 125 397 
+Clique 12: Size: 5, Nodes: 384 2 112 241 334 
+Clique 13: Size: 5, Nodes: 420 41 53 73 84 
+Clique 14: Size: 5, Nodes: 207 92 131 189 321 
+Clique 15: Size: 5, Nodes: 91 2 14 49 57 
+Clique 16: Size: 5, Nodes: 135 99 168 198 250 
+Clique 17: Size: 5, Nodes: 262 9 179 291 415 
+Clique 18: Size: 4, Nodes: 326 69 235 373 
+Clique 19: Size: 4, Nodes: 398 79 265 271 
+Clique 20: Size: 4, Nodes: 323 94 102 342 
+Clique 21: Size: 4, Nodes: 321 0 16 72 
+Clique 22: Size: 4, Nodes: 187 46 111 243 
+Clique 23: Size: 4, Nodes: 314 3 47 52 
+Clique 24: Size: 4, Nodes: 148 53 106 390 
+Clique 25: Size: 4, Nodes: 304 121 134 153 
+Clique 26: Size: 4, Nodes: 441 17 67 298 
+Clique 27: Size: 4, Nodes: 322 68 184 218 
+Clique 28: Size: 4, Nodes: 191 0 21 189 
+Clique 29: Size: 4, Nodes: 334 6 18 248 
+Clique 30: Size: 4, Nodes: 349 61 104 197 
+Clique 31: Size: 4, Nodes: 297 26 36 60 
+Clique 32: Size: 4, Nodes: 399 26 127 422 
+Clique 33: Size: 4, Nodes: 213 183 322 395 
+Clique 34: Size: 4, Nodes: 138 45 63 447 
+Clique 35: Size: 4, Nodes: 228 17 67 298 
+Clique 36: Size: 4, Nodes: 388 22 25 46 
+Clique 37: Size: 4, Nodes: 381 94 102 342 
+Clique 38: Size: 4, Nodes: 353 113 163 270 
+Clique 39: Size: 4, Nodes: 118 87 89 278 
+Clique 40: Size: 4, Nodes: 174 96 230 428 
+Clique 41: Size: 4, Nodes: 439 140 208 350 
+Clique 42: Size: 4, Nodes: 302 8 13 86 
+Clique 43: Size: 4, Nodes: 214 24 58 60 
+Clique 44: Size: 4, Nodes: 159 15 116 196 
+Clique 45: Size: 4, Nodes: 345 87 106 161 
+Clique 46: Size: 4, Nodes: 219 100 124 225 
+Clique 47: Size: 4, Nodes: 254 128 162 238 
+Clique 48: Size: 3, Nodes: 338 82 140 
+Clique 49: Size: 3, Nodes: 293 103 456 
+Clique 50: Size: 3, Nodes: 465 252 332 
+Clique 51: Size: 3, Nodes: 380 344 403 
+Clique 52: Size: 3, Nodes: 260 119 275 
+Clique 53: Size: 3, Nodes: 386 216 454 
+Clique 54: Size: 3, Nodes: 427 25 170 
+Clique 55: Size: 3, Nodes: 269 357 442 
+Clique 56: Size: 3, Nodes: 142 85 245 
+Clique 57: Size: 3, Nodes: 422 26 56 
+Clique 58: Size: 3, Nodes: 340 141 274 
+Clique 59: Size: 3, Nodes: 438 10 328 
+Clique 60: Size: 3, Nodes: 468 68 444 
+Clique 61: Size: 3, Nodes: 409 181 361 
+Clique 62: Size: 3, Nodes: 312 98 285 
+Clique 63: Size: 3, Nodes: 459 137 176 
+Clique 64: Size: 3, Nodes: 371 44 220 
+Clique 65: Size: 3, Nodes: 346 273 431 
+Clique 66: Size: 3, Nodes: 320 175 316 
+Clique 67: Size: 3, Nodes: 450 356 362 
+Clique 68: Size: 3, Nodes: 392 5 72 
+Clique 69: Size: 3, Nodes: 146 21 30 
+Clique 70: Size: 3, Nodes: 325 180 279 
+Clique 71: Size: 3, Nodes: 385 50 217 
+Clique 72: Size: 3, Nodes: 244 42 405 
+Clique 73: Size: 3, Nodes: 445 28 364 
+Clique 74: Size: 3, Nodes: 382 10 335 
+Clique 75: Size: 3, Nodes: 295 4 76 
+Clique 76: Size: 3, Nodes: 204 108 156 
+Clique 77: Size: 3, Nodes: 377 114 221 
+Clique 78: Size: 3, Nodes: 430 144 185 
+Clique 79: Size: 3, Nodes: 275 97 123 
+Clique 80: Size: 3, Nodes: 235 34 223 
+Clique 81: Size: 3, Nodes: 292 167 242 
+Clique 82: Size: 3, Nodes: 173 209 337 
+Clique 83: Size: 3, Nodes: 317 43 436 
+Clique 84: Size: 3, Nodes: 221 93 194 
+Clique 85: Size: 3, Nodes: 454 175 351 
+Clique 86: Size: 3, Nodes: 136 75 147 
+Clique 87: Size: 3, Nodes: 236 205 408 
+Clique 88: Size: 3, Nodes: 337 157 417 
+Clique 89: Size: 3, Nodes: 310 215 458 
+Clique 90: Size: 3, Nodes: 300 38 48 
+Clique 91: Size: 3, Nodes: 463 32 210 
+Clique 92: Size: 3, Nodes: 155 59 466 
+Clique 93: Size: 3, Nodes: 423 62 206 
+Clique 94: Size: 3, Nodes: 434 33 401 
+Clique 95: Size: 3, Nodes: 449 120 312 
+Clique 96: Size: 3, Nodes: 211 137 404 
+Clique 97: Size: 3, Nodes: 247 132 289 
+Clique 98: Size: 3, Nodes: 435 55 78 
+Clique 99: Size: 3, Nodes: 154 40 164 
+Clique 100: Size: 3, Nodes: 416 27 101 
+... (showing only 100 out of 203 cliques)
+Total execution time: 0.01254 seconds

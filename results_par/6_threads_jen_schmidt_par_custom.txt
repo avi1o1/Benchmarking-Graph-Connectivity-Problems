@@ -1,0 +1,15 @@
+---------------------------------------------------
+Results for bin/jen_schmidt_par on custom dataset with 6 threads
+Timestamp: 
+---------------------------------------------------
+Loading graph from datasets/custom.txt...
+Initializing graph with 49 nodes...
+Loading edges...
+Graph loaded: 49 nodes, 128 edges
+Graph loaded from datasets/custom.txt with 49 nodes
+Running parallel Jen-Schmidt computation with 6 threads...
+Found 1 connected components
+Computation time: 0.00014 seconds
+Found 1 biconnected components:
+Component 1: Size: 124, Nodes: 0 
+Total execution time: 0.00059 seconds

@@ -8,6 +8,6 @@ Loading edges...
 Graph loaded: 37699 nodes, 0 edges
 Graph loaded from datasets/github.txt with 37699 nodes
 Running parallel Tarjan-Vishkin computation with 8 threads...
-Computation time: 0.32060 seconds
+Computation time: 0.00088 seconds
 Found 0 biconnected components:
-Total execution time: 0.34402 seconds
+Total execution time: 0.03918 seconds

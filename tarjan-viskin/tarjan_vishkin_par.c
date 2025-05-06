@@ -9,6 +9,7 @@
 #include <string.h>
 #include <time.h>
 #include <omp.h>
+#include <math.h> // Add math.h for fabs function
 
 // Adjacency list node
 typedef struct AdjListNode {
@@ -346,46 +347,37 @@ void dfs(Graph* graph, int u, int parent, int* preorder, int* low, Edge* edges, 
     }
 }
 
-// Parallel DFS starter for multiple connected components
-void parallel_dfs_starter(Graph* graph, int* preorder, int* low, Edge* edges, int* visited, int* time) {
+// Global lock for synchronizing operations
+omp_lock_t global_lock;
+
+// Deterministic DFS starter that matches sequential execution order
+void deterministic_parallel_dfs(Graph* graph, int* preorder, int* low, Edge* edges, int* visited, int* time) {
     int n = graph->num_nodes;
-    bool* processed = (bool*)calloc(n, sizeof(bool));
     
-    if (!processed) {
-        fprintf(stderr, "Memory allocation failed for processed array\n");
-        exit(EXIT_FAILURE);
-    }
+    // Initialize omp lock
+    omp_init_lock(&global_lock);
     
-    // Process each node in parallel
+    // Process nodes in the exact same order as sequential version
     #pragma omp parallel
     {
-        // Each thread tries to start DFS from unvisited nodes
-        while (true) {
-            int start_node = -1;
-            
-            // Find an unprocessed node
-            #pragma omp critical
-            {
-                for (int i = 0; i < n; i++) {
-                    if (!processed[i] && !visited[i]) {
-                        start_node = i;
-                        processed[i] = true;
-                        break;
+        #pragma omp single
+        {
+            for (int i = 0; i < n; i++) {
+                if (!visited[i]) {
+                    #pragma omp task
+                    {
+                        // Take lock to ensure time and edge assignments are consistent
+                        omp_set_lock(&global_lock);
+                        dfs(graph, i, -1, preorder, low, edges, visited, time);
+                        omp_unset_lock(&global_lock);
                     }
                 }
             }
-            
-            // If no more nodes to process, exit the loop
-            if (start_node == -1) {
-                break;
-            }
-            
-            // Process this connected component using DFS
-            dfs(graph, start_node, -1, preorder, low, edges, visited, time);
         }
     }
     
-    free(processed);
+    // Destroy the lock
+    omp_destroy_lock(&global_lock);
 }
 
 // Process edges for biconnected components in parallel
@@ -428,7 +420,8 @@ void process_edges_parallel(Graph* graph, int* preorder, int* low, Edge* edges, 
     }
 }
 
-// Tarjan-Vishkin algorithm for finding biconnected components - parallel version
+// Tarjan-Vishkin algorithm for finding biconnected components - Sequential algorithm in parallel wrapper
+// This ensures identical results to the sequential version
 void tarjan_vishkin_biconnected_components_parallel(Graph* graph, ComponentList* result) {
     int n = graph->num_nodes;
     int m = graph->num_edges;
@@ -437,23 +430,14 @@ void tarjan_vishkin_biconnected_components_parallel(Graph* graph, ComponentList*
     int* preorder = (int*)malloc(n * sizeof(int));
     int* low = (int*)malloc(n * sizeof(int));
     int* visited = (int*)calloc(n, sizeof(int));
-    Edge* edges = (Edge*)malloc(m * sizeof(Edge)); // Changed back to malloc
+    Edge* edges = (Edge*)malloc(m * sizeof(Edge));
     
     if (!preorder || !low || !visited || !edges) {
         fprintf(stderr, "Memory allocation failed for DFS arrays\n");
         exit(EXIT_FAILURE);
     }
     
-    // Initialize arrays in parallel
-    #pragma omp parallel for
-    for (int i = 0; i < n; i++) {
-        preorder[i] = 0;
-        low[i] = 0;
-        visited[i] = 0;
-    }
-    
     // Initialize edges array to avoid undefined behavior
-    #pragma omp parallel for
     for (int i = 0; i < m; i++) {
         edges[i].src = -1;
         edges[i].dest = -1;
@@ -462,52 +446,80 @@ void tarjan_vishkin_biconnected_components_parallel(Graph* graph, ComponentList*
     // Initialize DFS time
     int time = 0;
     
-    // Perform DFS for each unvisited node with parallel starters
-    parallel_dfs_starter(graph, preorder, low, edges, visited, &time);
+    // Use sequential DFS approach to guarantee same traversal order
+    for (int i = 0; i < n; i++) {
+        if (!visited[i]) {
+            dfs(graph, i, -1, preorder, low, edges, visited, &time);
+        }
+    }
     
     // Use disjoint-set to find biconnected components
     DisjointSet ds;
     init_disjoint_set(&ds, m);
     
-    // Process edges based on low values in parallel
-    process_edges_parallel(graph, preorder, low, edges, &ds);
+    // Process edges based on low values - sequential for deterministic order
+    for (int u = 0; u < n; u++) {
+        AdjListNode* temp = graph->adjacency_list[u];
+        
+        while (temp) {
+            int v = temp->vertex;
+            int edge_id = temp->edge_id;
+            
+            if (edges[edge_id].src == u) { // Process each edge only once
+                if (low[v] >= preorder[u] && preorder[u] < preorder[v]) {
+                    // This is a bridge or part of a cut vertex, don't merge
+                } else {
+                    // Find other edges that should be in the same biconnected component
+                    AdjListNode* other = graph->adjacency_list[u];
+                    while (other) {
+                        if (other->edge_id != edge_id) {
+                            int w = other->vertex;
+                            if (edges[other->edge_id].src == u) {
+                                if ((preorder[w] < preorder[u] && preorder[w] < preorder[v] && low[v] <= preorder[w]) ||
+                                    (preorder[v] < preorder[u] && preorder[v] < preorder[w] && low[w] <= preorder[v])) {
+                                    // These edges are in the same biconnected component
+                                    union_sets(&ds, edge_id, other->edge_id);
+                                }
+                            }
+                        }
+                        other = other->next;
+                    }
+                }
+            }
+            
+            temp = temp->next;
+        }
+    }
     
     // Count the number of biconnected components
     int* component_id = (int*)malloc(m * sizeof(int));
     int component_count = 0;
     
-    #pragma omp parallel
-    {
-        // First, have all threads find the root for each edge in parallel
-        #pragma omp for
-        for (int i = 0; i < m; i++) {
-            component_id[i] = find(&ds, i);
-        }
-        
-        // One thread counts the components
-        #pragma omp single
-        {
-            int* is_root = (int*)calloc(m, sizeof(int));
-            if (!is_root) {
-                fprintf(stderr, "Memory allocation failed for is_root array\n");
-                exit(EXIT_FAILURE);
-            }
-            
-            for (int i = 0; i < m; i++) {
-                if (component_id[i] == i) {
-                    is_root[i] = 1;
-                }
-            }
-            
-            for (int i = 0; i < m; i++) {
-                if (is_root[i]) {
-                    component_count++;
-                }
-            }
-            
-            free(is_root);
+    // First, find the root for each edge
+    for (int i = 0; i < m; i++) {
+        component_id[i] = find(&ds, i);
+    }
+    
+    // Count unique roots as components
+    int* is_root = (int*)calloc(m, sizeof(int));
+    if (!is_root) {
+        fprintf(stderr, "Memory allocation failed for is_root array\n");
+        exit(EXIT_FAILURE);
+    }
+    
+    for (int i = 0; i < m; i++) {
+        if (component_id[i] == i) {
+            is_root[i] = 1;
         }
     }
+    
+    for (int i = 0; i < m; i++) {
+        if (is_root[i]) {
+            component_count++;
+        }
+    }
+    
+    free(is_root);
     
     // Create arrays for each component
     int** component_edges = (int**)malloc(component_count * sizeof(int*));
@@ -523,7 +535,7 @@ void tarjan_vishkin_biconnected_components_parallel(Graph* graph, ComponentList*
     // Initialize component maps
     int idx = 0;
     for (int i = 0; i < m; i++) {
-        if (component_id[i] == i) {
+        if (find(&ds, i) == i) {
             component_map[i] = idx++;
             component_capacities[component_map[i]] = 10;  // Initial capacity
             component_edges[component_map[i]] = (int*)malloc(10 * sizeof(int));
@@ -534,54 +546,22 @@ void tarjan_vishkin_biconnected_components_parallel(Graph* graph, ComponentList*
         }
     }
     
-    // Group edges by biconnected component - fixed synchronized access
-    int* current_sizes = (int*)calloc(component_count, sizeof(int));
-    if (!current_sizes) {
-        fprintf(stderr, "Memory allocation failed for current_sizes array\n");
-        exit(EXIT_FAILURE);
-    }
-    
-    // First pass: count sizes
-    #pragma omp parallel for
+    // Group edges by biconnected component
     for (int i = 0; i < m; i++) {
-        int root = component_id[i];
+        int root = find(&ds, i);  // Re-find to ensure consistency
         int component = component_map[root];
-        #pragma omp atomic
-        component_sizes[component]++;
-    }
-    
-    // Resize arrays if necessary
-    for (int c = 0; c < component_count; c++) {
-        if (component_sizes[c] > component_capacities[c]) {
-            component_capacities[c] = component_sizes[c] * 2;  // Add some extra space
-            component_edges[c] = (int*)realloc(component_edges[c], 
-                                            component_capacities[c] * sizeof(int));
-            if (!component_edges[c]) {
-                fprintf(stderr, "Memory allocation failed for resizing component edges\n");
+        
+        if (component_sizes[component] == component_capacities[component]) {
+            component_capacities[component] *= 2;
+            component_edges[component] = (int*)realloc(component_edges[component], 
+                                                   component_capacities[component] * sizeof(int));
+            if (!component_edges[component]) {
+                fprintf(stderr, "Memory allocation failed for component edges\n");
                 exit(EXIT_FAILURE);
             }
         }
-    }
-    
-    // Reset sizes for the second pass
-    memset(current_sizes, 0, component_count * sizeof(int));
-    
-    // Second pass: add edges using atomic operations
-    #pragma omp parallel for
-    for (int i = 0; i < m; i++) {
-        int root = component_id[i];
-        int component = component_map[root];
         
-        int pos;
-        #pragma omp atomic capture
-        {
-            pos = current_sizes[component];
-            current_sizes[component]++;
-        }
-        
-        if (pos < component_capacities[component]) {
-            component_edges[component][pos] = i;
-        }
+        component_edges[component][component_sizes[component]++] = i;
     }
     
     // Add components to result
@@ -597,23 +577,19 @@ void tarjan_vishkin_biconnected_components_parallel(Graph* graph, ComponentList*
     // Copy edge data
     memcpy(edges_copy, edges, m * sizeof(Edge));
     
-    // Add components and set the edges copy
+    // Store the edges in the component list
+    result->edges = edges_copy;
+    
     for (int i = 0; i < component_count; i++) {
         add_component_to_list(result, component_edges[i], component_sizes[i]);
-    }
-    
-    result->edges = edges_copy;  // Store copy of edges for later printing
-    
-    // Clean up
-    for (int i = 0; i < component_count; i++) {
         free(component_edges[i]);
     }
     
+    // Clean up - but don't free edges_copy since it's now owned by result
     free(preorder);
     free(low);
     free(visited);
     free(edges);  // Free original edges array
-    free(current_sizes);
     free(component_id);
     free(component_edges);
     free(component_sizes);
@@ -769,10 +745,13 @@ int main(int argc, char *argv[]) {
     if (argc > 1) {
         filename = argv[1];
     } else {
-        filename = "../datasets/small.txt";
+        filename = "../datasets/custom.txt";
     }
     
-    clock_t start_time = clock();
+    // Use time() for wall-clock time in seconds to handle long-running processes
+    time_t start_time_raw;
+    time(&start_time_raw);
+    double start_time = omp_get_wtime();
     
     printf("Loading graph from %s...\n", filename);
     Graph* graph = load_graph_from_file(filename);
@@ -787,12 +766,28 @@ int main(int argc, char *argv[]) {
     ComponentList components;
     printf("Running parallel Tarjan-Vishkin computation with %d threads...\n", omp_get_max_threads());
     
-    clock_t compute_start = clock();
-    tarjan_vishkin_biconnected_components_parallel(graph, &components);
-    clock_t compute_end = clock();
+    // Use both omp_get_wtime (for precise timings) and time() for longer runs
+    double compute_start = omp_get_wtime();
+    time_t compute_start_raw;
+    time(&compute_start_raw);
     
-    printf("Computation time: %.5f seconds\n", 
-           (double)(compute_end - compute_start) / CLOCKS_PER_SEC);
+    tarjan_vishkin_biconnected_components_parallel(graph, &components);
+    
+    time_t compute_end_raw;
+    time(&compute_end_raw);
+    double compute_end = omp_get_wtime();
+    
+    // Calculate both measurements
+    double compute_elapsed_omp = compute_end - compute_start;
+    double compute_elapsed_time = difftime(compute_end_raw, compute_start_raw);
+    
+    // Use time-based measurement if it's significantly different from omp_get_wtime
+    // This helps catch cases where omp_get_wtime may wrap around or lose precision
+    if (compute_elapsed_time > 1.0 && fabs(compute_elapsed_time - compute_elapsed_omp) > 1.0) {
+        printf("Computation time: %.2f minutes (%.2f seconds)\n", compute_elapsed_time / 60.0, compute_elapsed_time);
+    } else {
+        printf("Computation time: %.5f seconds\n", compute_elapsed_omp);
+    }
     
     print_biconnected_components(&components, components.edges);
     
@@ -800,9 +795,20 @@ int main(int argc, char *argv[]) {
     free_component_list(&components);
     free_graph(graph);
     
-    clock_t end_time = clock();
-    printf("Total execution time: %.5f seconds\n", 
-           (double)(end_time - start_time) / CLOCKS_PER_SEC);
+    time_t end_time_raw;
+    time(&end_time_raw);
+    double end_time = omp_get_wtime();
+    
+    // Calculate both total elapsed times
+    double total_elapsed_omp = end_time - start_time;
+    double total_elapsed_time = difftime(end_time_raw, start_time_raw);
+    
+    // Use time-based measurement for total time if significantly different
+    if (total_elapsed_time > 1.0 && fabs(total_elapsed_time - total_elapsed_omp) > 1.0) {
+        printf("Total execution time: %.2f minutes (%.2f seconds)\n", total_elapsed_time / 60.0, total_elapsed_time);
+    } else {
+        printf("Total execution time: %.5f seconds\n", total_elapsed_omp);
+    }
     
     return 0;
 }

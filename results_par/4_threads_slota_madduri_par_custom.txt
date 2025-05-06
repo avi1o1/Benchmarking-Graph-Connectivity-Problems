@@ -7,9 +7,9 @@ Initializing graph with 49 nodes...
 Loading edges...
 Graph loaded: 49 nodes, 128 edges
 Graph loaded from datasets/custom.txt with 49 nodes
-Running parallel computation...
-Computation time: 0.00036 seconds
-Found 27 maximal cliques:
+Running parallel computation with 4 threads...
+Computation time: 0.00049 seconds
+Found 26 maximal cliques:
 Clique 1: Size: 3, Nodes: 11 10 17 
 Clique 2: Size: 3, Nodes: 19 12 20 
 Clique 3: Size: 3, Nodes: 24 22 23 
@@ -29,12 +29,11 @@ Clique 16: Size: 2, Nodes: 30 31
 Clique 17: Size: 2, Nodes: 37 42 
 Clique 18: Size: 2, Nodes: 5 48 
 Clique 19: Size: 2, Nodes: 28 4 
-Clique 20: Size: 2, Nodes: 46 41 
-Clique 21: Size: 1, Nodes: 41 
-Clique 22: Size: 1, Nodes: 21 
-Clique 23: Size: 1, Nodes: 43 
-Clique 24: Size: 1, Nodes: 1 
-Clique 25: Size: 1, Nodes: 35 
+Clique 20: Size: 1, Nodes: 43 
+Clique 21: Size: 1, Nodes: 13 
+Clique 22: Size: 1, Nodes: 1 
+Clique 23: Size: 1, Nodes: 41 
+Clique 24: Size: 1, Nodes: 35 
+Clique 25: Size: 1, Nodes: 21 
 Clique 26: Size: 1, Nodes: 47 
-Clique 27: Size: 1, Nodes: 13 
-Total execution time: 0.00044 seconds
+Total execution time: 0.00062 seconds

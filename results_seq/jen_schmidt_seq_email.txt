@@ -1,6 +1,6 @@
 ---------------------------------------------------
 Results for jen_schmidt_seq on email dataset
-Timestamp: Mon May  5 04:35:47 PM IST 2025
+Timestamp: Tue May  6 07:20:25 PM IST 2025
 ---------------------------------------------------
 Loading graph from datasets/email.txt...
 Initializing graph with 1004 nodes...
@@ -8,7 +8,7 @@ Loading edges...
 Graph loaded: 1004 nodes, 25571 edges
 Graph loaded from datasets/email.txt with 1004 nodes
 Running sequential Jen-Schmidt computation...
-Computation time: 0.00071 seconds
+Computation time: 0.00082 seconds
 Found 96 biconnected components:
 Component 1: Size: 15928, Edges: (0-0) (0-0) (0-0) (0-0) (0-0) (0-0) (0-0) (0-0) (0-0) (0-0) ... (and 15918 more)
 Component 2: Size: 2, Edges: (0-0) (0-0) 
@@ -106,4 +106,4 @@ Component 93: Size: 2, Edges: (0-0) (0-0)
 Component 94: Size: 2, Edges: (0-0) (0-0) 
 Component 95: Size: 2, Edges: (0-0) (0-0) 
 Component 96: Size: 2, Edges: (0-0) (0-0) 
-Total execution time: 0.01176 seconds
+Total execution time: 0.01279 seconds

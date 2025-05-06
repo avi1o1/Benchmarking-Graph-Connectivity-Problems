@@ -1,6 +1,6 @@
 ---------------------------------------------------
 Results for jen_schmidt_seq on facebook dataset
-Timestamp: Mon May  5 04:35:48 PM IST 2025
+Timestamp: Tue May  6 07:20:25 PM IST 2025
 ---------------------------------------------------
 Loading graph from datasets/facebook.txt...
 Initializing graph with 4038 nodes...
@@ -8,7 +8,7 @@ Loading edges...
 Graph loaded: 4038 nodes, 88234 edges
 Graph loaded from datasets/facebook.txt with 4038 nodes
 Running sequential Jen-Schmidt computation...
-Computation time: 0.00311 seconds
+Computation time: 0.00505 seconds
 Found 106 biconnected components:
 Component 1: Size: 85527, Edges: (0-0) (0-0) (0-0) (0-0) (0-0) (0-0) (0-0) (0-0) (0-0) (0-0) ... (and 85517 more)
 Component 2: Size: 1950, Edges: (0-0) (0-0) (0-0) (0-0) (0-0) (0-0) (0-0) (0-0) (0-0) (0-0) ... (and 1940 more)
@@ -111,4 +111,4 @@ Component 98: Size: 2, Edges: (0-0) (0-0)
 Component 99: Size: 2, Edges: (0-0) (0-0) 
 Component 100: Size: 2, Edges: (0-0) (0-0) 
 ... (showing only 100 out of 106 components)
-Total execution time: 0.02957 seconds
+Total execution time: 0.03328 seconds

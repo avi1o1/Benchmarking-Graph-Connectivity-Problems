@@ -1,6 +1,6 @@
 ---------------------------------------------------
 Results for jen_schmidt_seq on musae dataset
-Timestamp: Mon May  5 04:36:08 PM IST 2025
+Timestamp: Tue May  6 07:21:13 PM IST 2025
 ---------------------------------------------------
 Loading graph from datasets/musae.txt...
 Initializing graph with 22469 nodes...
@@ -8,7 +8,7 @@ Loading edges...
 Graph loaded: 22469 nodes, 171002 edges
 Graph loaded from datasets/musae.txt with 22469 nodes
 Running sequential Jen-Schmidt computation...
-Computation time: 0.01634 seconds
+Computation time: 0.03669 seconds
 Found 3078 biconnected components:
 Component 1: Size: 167138, Edges: (0-0) (0-0) (0-0) (0-0) (0-0) (0-0) (0-0) (0-0) (0-0) (0-0) ... (and 167128 more)
 Component 2: Size: 44, Edges: (0-0) (0-0) (0-0) (0-0) (0-0) (0-0) (0-0) (0-0) (0-0) (0-0) ... (and 34 more)
@@ -111,4 +111,4 @@ Component 98: Size: 4, Edges: (0-0) (0-0) (0-0) (0-0)
 Component 99: Size: 4, Edges: (0-0) (0-0) (0-0) (0-0) 
 Component 100: Size: 4, Edges: (0-0) (0-0) (0-0) (0-0) 
 ... (showing only 100 out of 3078 components)
-Total execution time: 0.07959 seconds
+Total execution time: 0.16131 seconds

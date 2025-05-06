@@ -1,6 +1,6 @@
 ---------------------------------------------------
 Results for slota_madduri_seq on facebook dataset
-Timestamp: Mon May  5 04:35:47 PM IST 2025
+Timestamp: Tue May  6 07:20:25 PM IST 2025
 ---------------------------------------------------
 Loading graph from datasets/facebook.txt...
 Initializing graph with 4038 nodes...
@@ -8,7 +8,7 @@ Loading edges...
 Graph loaded: 4038 nodes, 88234 edges
 Graph loaded from datasets/facebook.txt with 4038 nodes
 Running sequential computation...
-Computation time: 0.53088 seconds
+Computation time: 0.55013 seconds
 Found 1374 maximal cliques:
 Clique 1: Size: 44, Nodes: 2346 1916 1917 1924 1928 1945 1978 1982 1983 1984 1992 2029 2042 2072 2077 2087 2094 2103 2117 2139 ... (and 24 more)
 Clique 2: Size: 34, Nodes: 2232 1937 1942 1961 1965 1970 2004 2019 2036 2044 2063 2089 2107 2122 2130 2183 2189 2200 2219 2228 ... (and 14 more)
@@ -111,4 +111,4 @@ Clique 98: Size: 7, Nodes: 1708 976 1010 1071 1168 1481 1623
 Clique 99: Size: 7, Nodes: 661 576 581 594 634 649 669 
 Clique 100: Size: 7, Nodes: 3197 2685 2701 2870 3106 3218 3336 
 ... (showing only 100 out of 1374 cliques)
-Total execution time: 0.55574 seconds
+Total execution time: 0.58026 seconds

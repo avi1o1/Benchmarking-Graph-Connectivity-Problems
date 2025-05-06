@@ -9,7 +9,7 @@ Graph loaded: 7623 nodes, 27806 edges
 Graph loaded from datasets/lastfm.txt with 7623 nodes
 Running parallel Jen-Schmidt computation with 4 threads...
 Found 1 connected components
-Computation time: 0.00340 seconds
+Computation time: 0.00757 seconds
 Found 1959 biconnected components:
 Component 1: Size: 25768, Nodes: 0 
 Component 2: Size: 11, Nodes: 0 
@@ -1970,4 +1970,4 @@ Component 1956: Size: 2, Nodes: 0
 Component 1957: Size: 2, Nodes: 0 
 Component 1958: Size: 2, Nodes: 0 
 Component 1959: Size: 2, Nodes: 0 
-Total execution time: 0.01313 seconds
+Total execution time: 0.02734 seconds

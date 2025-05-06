@@ -1,6 +1,6 @@
 ---------------------------------------------------
 Results for slota_madduri_seq on congress dataset
-Timestamp: Mon May  5 04:35:47 PM IST 2025
+Timestamp: Tue May  6 07:20:25 PM IST 2025
 ---------------------------------------------------
 Loading graph from datasets/congress.txt...
 Initializing graph with 474 nodes...
@@ -8,7 +8,7 @@ Loading edges...
 Graph loaded: 474 nodes, 13289 edges
 Graph loaded from datasets/congress.txt with 474 nodes
 Running sequential computation...
-Computation time: 0.01289 seconds
+Computation time: 0.01482 seconds
 Found 180 maximal cliques:
 Clique 1: Size: 7, Nodes: 191 21 115 219 268 336 388 
 Clique 2: Size: 6, Nodes: 366 7 16 31 70 71 
@@ -111,4 +111,4 @@ Clique 98: Size: 2, Nodes: 156 231
 Clique 99: Size: 2, Nodes: 408 158 
 Clique 100: Size: 2, Nodes: 149 150 
 ... (showing only 100 out of 180 cliques)
-Total execution time: 0.01583 seconds
+Total execution time: 0.01778 seconds

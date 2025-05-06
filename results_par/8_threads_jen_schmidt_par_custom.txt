@@ -9,7 +9,7 @@ Graph loaded: 49 nodes, 128 edges
 Graph loaded from datasets/custom.txt with 49 nodes
 Running parallel Jen-Schmidt computation with 8 threads...
 Found 1 connected components
-Computation time: 0.00014 seconds
+Computation time: 0.00021 seconds
 Found 1 biconnected components:
 Component 1: Size: 124, Nodes: 0 
-Total execution time: 0.00061 seconds
+Total execution time: 0.00058 seconds

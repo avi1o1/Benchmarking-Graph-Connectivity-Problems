@@ -1,6 +1,6 @@
 ---------------------------------------------------
 Results for slota_madduri_seq on email dataset
-Timestamp: Mon May  5 04:35:47 PM IST 2025
+Timestamp: Tue May  6 07:20:25 PM IST 2025
 ---------------------------------------------------
 Loading graph from datasets/email.txt...
 Initializing graph with 1004 nodes...
@@ -8,7 +8,7 @@ Loading edges...
 Graph loaded: 1004 nodes, 25571 edges
 Graph loaded from datasets/email.txt with 1004 nodes
 Running sequential computation...
-Computation time: 0.03313 seconds
+Computation time: 0.04083 seconds
 Found 519 maximal cliques:
 Clique 1: Size: 13, Nodes: 159 1 2 3 54 55 56 57 58 62 193 251 684 
 Clique 2: Size: 13, Nodes: 370 96 97 98 99 100 123 124 184 322 352 403 767 
@@ -111,4 +111,4 @@ Clique 98: Size: 3, Nodes: 719 323 554
 Clique 99: Size: 3, Nodes: 921 486 487 
 Clique 100: Size: 3, Nodes: 822 557 673 
 ... (showing only 100 out of 519 cliques)
-Total execution time: 0.04121 seconds
+Total execution time: 0.04966 seconds
