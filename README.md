@@ -63,10 +63,6 @@ make -f Makefile.par clean
 ## Performance Results
 
 ### Sequential Performance
-**Slota Madduri**
-- Small: 0.00554 seconds ; 0.00562 seconds
-- Medium: 1.37 seconds ; 1.34 seconds
-- Large: 44444.38883 seconds ; 44463.96789 seconds
 
 [TODO] Performance for the other algorithms will be measured and documented after running the benchmarks.
 
@@ -104,6 +100,7 @@ OMP_NUM_THREADS=4 ./slota_par datasets/medium.txt
 | [congress-Twitter](./datasets/congress.txt)       | https://snap.stanford.edu/data/congress-twitter.html | 475 | 13,289 | Twitter interaction network for the US Congress |
 | [email-Eu-Core](./datasets/email.txt)      | https://snap.stanford.edu/data/email-Eu-core.html | 1,005 | 25,571 | E-mail network |
 | [ego-Facebook](./datasets/facebook.txt)       | https://snap.stanford.edu/data/ego-Facebook.html | 4,039 | 88,234 | Facebook social circles network |
+| [ca-HepPh](./datasets/hep.txt)       | https://snap.stanford.edu/data/ca-HepPh.html | 12,008 | 118,521 | Collaboration network of Arxiv High Energy Physics |
 | [musae-Facebook](./datasets/musae.txt)       | https://snap.stanford.edu/data/facebook-large-page-page-network.html | 22,469 | 171,002 | Facebook page-page network with page names |
 | [musae-github](./datasets/github.txt)       | https://snap.stanford.edu/data/github-social.html | 37,700 | 289,003 | Social network of Github developers |
 | [soc-Slashdot0922](./datasets/slashdot.txt)       | https://snap.stanford.edu/data/soc-Slashdot0902.html | 82,167 | 948,464 | Slashdot social network from February 2009 |
